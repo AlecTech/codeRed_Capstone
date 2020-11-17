@@ -43,9 +43,9 @@ namespace codeRed_Capstone.Controllers
         }
 
         // GET: Employee/Create
-        public IActionResult Create()
+        public IActionResult Create(int ID =0)
         {
-            return View();
+            return View(new Employee());
         }
 
         // POST: Employee/Create
@@ -53,7 +53,7 @@ namespace codeRed_Capstone.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department")] Employee employee)
+        public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,Phone,Age,City,Department")] Employee employee)
         {
             if (ModelState.IsValid)
             {
