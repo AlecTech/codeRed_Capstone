@@ -32,8 +32,8 @@ namespace codeRed_Capstone
 
             //NOV17 inject dependancy
             services.AddDbContext<CompanyContext>();
-            //    (options => 
-            //options.UseMySql(Configuration.GetConnectionString("XAMPPConnection")));
+        //    (options =>
+        //options.UseMySql(Configuration.GetConnectionString("XAMPPConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
