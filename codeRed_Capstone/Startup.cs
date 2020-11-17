@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//NOV 17 add using statement for dependancy injection
+using codeRed_Capstone.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+//NOV17 IMPORTED FOR USESQLSERVER 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +29,11 @@ namespace codeRed_Capstone
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //NOV17 inject dependancy
+            services.AddDbContext<CompanyContext>();
+            //    (options => 
+            //options.UseMySql(Configuration.GetConnectionString("XAMPPConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

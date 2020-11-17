@@ -11,10 +11,10 @@ namespace codeRed_Capstone.Models
     public class Employee
     {
         //default constructor 
-        public Employee()
-        {// HashSet no duplicates
-            Employees = new HashSet<Employee>();
-        }
+        //public Employee()
+        //{
+        //    Employees = new HashSet<Employee>();
+        //}
 
         [Key]
         [Required]
@@ -55,6 +55,6 @@ namespace codeRed_Capstone.Models
         //public byte[] CreatedAt { get; set; }
 
         //ICollection is for looping through List<Objects> and allows to modify them(Add,Remove) . IEnumerables only allows to loop
-        public virtual ICollection<Employee> Employees { get; set; }
+       // public virtual ICollection<Employee> Employees { get; set; }
     }
 }

@@ -13,8 +13,7 @@ namespace codeRed_Capstone.Models
         public CompanyContext()
         {
         }
-        public CompanyContext(DbContextOptions<CompanyContext> options)
-            : base(options)
+        public CompanyContext(DbContextOptions<CompanyContext> options) : base(options)
         {
         }
         public virtual DbSet<Employee> Employees { get; set; }
