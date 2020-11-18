@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using codeRed_Capstone.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace codeRed_Capstone.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly CompanyContext _context;
