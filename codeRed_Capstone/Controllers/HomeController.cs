@@ -20,7 +20,7 @@ namespace codeRed_Capstone.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index2()
         {
             return View();
         }

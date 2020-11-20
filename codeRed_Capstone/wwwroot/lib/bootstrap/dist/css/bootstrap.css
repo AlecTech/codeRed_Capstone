@@ -544,13 +544,14 @@ pre code {
   max-height: 340px;
   overflow-y: scroll;
 }
-
+/*trying to add background img, no luck*/
 .container {
-  width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
+    /*background-image: url('../../../../img/OnlineWorldAmico.png');*/
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 @media (min-width: 576px) {

@@ -57,11 +57,19 @@ html {
   position: relative;
   min-height: 100%;
 }
+/*Trying to add backgroud image*/
+/*#backgroundImg {
+    background-image: url("../img/OnlineWorldAmico.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}*/
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  font-family: "Ubuntu", sans-serif;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    font-family: "Ubuntu", sans-serif;
 }
 .footer {
   position: absolute;
