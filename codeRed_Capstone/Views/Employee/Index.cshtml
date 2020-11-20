@@ -15,23 +15,23 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            @*<li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
-            </li>
+            </li>*@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
+                    Sorting
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
+                    <a class="dropdown-item" href="#">Sort by Last Name</a>
+                    <a class="dropdown-item" href="#">Sort by Department</a>
+                    @*<div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>*@
                 </div>
             </li>
-            <li class="nav-item">
+            @*<li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+            </li>*@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -64,7 +64,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Department)
             </th>
-            <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create New</a></th>
+            <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create</a></th>
         </tr>
     </thead>
     <tbody>
@@ -93,9 +93,9 @@
                     @Html.DisplayFor(modelItem => item.Department)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i>Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i>Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i>Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
                 </td>
             </tr>
         }

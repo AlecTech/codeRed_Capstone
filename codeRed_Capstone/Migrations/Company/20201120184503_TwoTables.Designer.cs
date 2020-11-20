@@ -9,8 +9,8 @@ using codeRed_Capstone.Models;
 namespace codeRed_Capstone.Migrations.Company
 {
     [DbContext(typeof(CompanyContext))]
-    [Migration("20201117032105_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20201120184503_TwoTables")]
+    partial class TwoTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,9 +53,6 @@ namespace codeRed_Capstone.Migrations.Company
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
                         .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
-                    b.Property<int?>("EmployeeID")
-                        .HasColumnType("int(10)");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnName("FirstName")
@@ -78,8 +75,6 @@ namespace codeRed_Capstone.Migrations.Company
                         .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("EmployeeID");
 
                     b.ToTable("employee");
 
@@ -141,11 +136,85 @@ namespace codeRed_Capstone.Migrations.Company
                         });
                 });
 
-            modelBuilder.Entity("codeRed_Capstone.Models.Employee", b =>
+            modelBuilder.Entity("codeRed_Capstone.Models.EmployeeDate", b =>
                 {
-                    b.HasOne("codeRed_Capstone.Models.Employee", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("EmployeeID");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ID")
+                        .HasColumnType("int(10)");
+
+                    b.Property<int>("EmployeeID")
+                        .HasColumnName("EmployeeID")
+                        .HasColumnType("int(10)");
+
+                    b.Property<DateTime?>("FiredDate")
+                        .HasColumnName("FiredDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("HiredDate")
+                        .HasColumnName("HiredDate")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("ModifiedDate")
+                        .HasColumnType("date")
+                        .HasDefaultValueSql("NOW()");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EmployeeID")
+                        .HasName("FK_EmployeeDate_Employee");
+
+                    b.ToTable("employeedate");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = -1,
+                            EmployeeID = -1,
+                            HiredDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = -2,
+                            EmployeeID = -2,
+                            FiredDate = new DateTime(2020, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            HiredDate = new DateTime(2020, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = -3,
+                            EmployeeID = -3,
+                            HiredDate = new DateTime(2020, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = -4,
+                            EmployeeID = -4,
+                            HiredDate = new DateTime(2020, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = -5,
+                            EmployeeID = -5,
+                            HiredDate = new DateTime(2020, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("codeRed_Capstone.Models.EmployeeDate", b =>
+                {
+                    b.HasOne("codeRed_Capstone.Models.Employee", "Employee")
+                        .WithMany("EmployeeDates")
+                        .HasForeignKey("EmployeeID")
+                        .HasConstraintName("FK_EmployeeDate_Employee")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

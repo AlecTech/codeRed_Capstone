@@ -11,10 +11,11 @@ namespace codeRed_Capstone.Models
     public class Employee
     {
         //default constructor 
-        //public Employee()
-        //{
-        //    Employees = new HashSet<Employee>();
-        //}
+        public Employee()
+        {
+            EmployeeDates = new HashSet<EmployeeDate>();
+        }
+
 
         [Key]
         [Required]
@@ -39,6 +40,7 @@ namespace codeRed_Capstone.Models
         public string Phone { get; set; }
 
         [Required]
+        [Range (16, 100)]
         [Column("Age", TypeName = "int(1)")]
         public int Age { get; set; }
 
@@ -50,11 +52,11 @@ namespace codeRed_Capstone.Models
         [Column("Department", TypeName = "varchar(100)")]
         public string Department { get; set; }
 
-        //[Timestamp]
-        //[Column("CreatedAt", TypeName = "timestamp")]
-        //public byte[] CreatedAt { get; set; }
 
+        [InverseProperty(nameof(Models.EmployeeDate.Employee))]
         //ICollection is for looping through List<Objects> and allows to modify them(Add,Remove) . IEnumerables only allows to loop
-       // public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<EmployeeDate> EmployeeDates { get; set; }
+       
+      
     }
 }

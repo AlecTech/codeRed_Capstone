@@ -17,6 +17,7 @@ namespace codeRed_Capstone.Models
         {
         }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<EmployeeDate> EmployeeDates { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,7 +27,7 @@ namespace codeRed_Capstone.Models
                     "server=localhost;" +
                     "port=3306;" +
                     "user=root;" +
-                    "database=codered_employeeDB_cf;";
+                    "database=codered_employeeExtraDB_cf;";
                 string version = "10.4.14-MariaDB";
                 optionsBuilder.UseMySql(connection, x => x.ServerVersion(version));
             }
@@ -73,7 +74,7 @@ namespace codeRed_Capstone.Models
                         Age = 30,
                         City = "Edmonton",
                         Department = "IT"
-                       // CreatedAt = new DateTime (GetUtcDate())
+                       
                     },
                     new Employee()
                     {
@@ -85,7 +86,7 @@ namespace codeRed_Capstone.Models
                         Age = 31,
                         City = "Edmonton",
                         Department = "Sales"
-                       // CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                       
                     },
                     new Employee()
                     {
@@ -97,7 +98,7 @@ namespace codeRed_Capstone.Models
                         Age = 29,
                         City = "Calgary",
                         Department = "Sales"
-                      //  CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                    
                     },
                     new Employee()
                     {
@@ -109,7 +110,7 @@ namespace codeRed_Capstone.Models
                         Age = 25,
                         City = "Calgary",
                         Department = "Accounting"
-                      //  CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                      
                     },
                     new Employee()
                     {
@@ -121,10 +122,79 @@ namespace codeRed_Capstone.Models
                         Age = 30,
                         City = "Banff",
                         Department = "CEO"
-                      //  CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                     
                     }
                 );
-            });    
+            });
+
+
+            modelBuilder.Entity<EmployeeDate>(entity =>
+            {
+             
+
+                entity.Property(e => e.ModifiedDate).ValueGeneratedOnAdd();
+
+                entity.HasIndex(e => e.EmployeeID)
+                 .HasName("FK_" + nameof(EmployeeDate) + "_" + nameof(Employee));
+
+                entity.HasOne(child => child.Employee)
+                  .WithMany(parent => parent.EmployeeDates)
+                  .HasForeignKey(child => child.EmployeeID)
+           
+                  // Restrict: Throw an exception if we try to orphan a child record.
+                  // Cascade: Remove any child records that would be orphaned by a removed parent.
+                
+                  .OnDelete(DeleteBehavior.Restrict)
+                  .HasConstraintName("FK_" + nameof(EmployeeDate) + "_" + nameof(Employee));
+
+                entity.Property(e => e.ModifiedDate).HasDefaultValueSql("NOW()");
+
+                entity.HasData(
+                    new EmployeeDate()
+                    {
+                        ID = -1,
+                        EmployeeID = -1,
+                        HiredDate = new DateTime(2020, 01, 01),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                        // CreatedAt = new DateTime (GetUtcDate())
+                    },
+                    new EmployeeDate()
+                    {
+                        ID = -2,
+                        EmployeeID = -2,
+                        HiredDate = new DateTime(2020, 02, 02),
+                        FiredDate = new DateTime(2020, 05, 05),
+                        ModifiedDate = new DateTime()
+                    },
+                    new EmployeeDate()
+                    {
+                        ID = -3,
+                        EmployeeID = -3,
+                        HiredDate = new DateTime(2020, 04, 04),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                    },
+                    new EmployeeDate()
+                    {
+                        ID = -4,
+                        EmployeeID = -4,
+                        HiredDate = new DateTime(2020, 06, 06),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                    },
+                    new EmployeeDate()
+                    {
+                        ID = -5,
+                        EmployeeID = -5,
+                        HiredDate = new DateTime(2020, 07, 07),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                    }
+                );
+            });
+
+
         }
     }
 }
