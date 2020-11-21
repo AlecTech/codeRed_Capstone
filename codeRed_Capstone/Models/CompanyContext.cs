@@ -129,9 +129,7 @@ namespace codeRed_Capstone.Models
 
 
             modelBuilder.Entity<EmployeeDate>(entity =>
-            {
-             
-
+            {            
                 entity.Property(e => e.ModifiedDate).ValueGeneratedOnAdd();
 
                 entity.HasIndex(e => e.EmployeeID)

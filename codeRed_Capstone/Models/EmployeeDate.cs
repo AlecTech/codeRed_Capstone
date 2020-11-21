@@ -11,6 +11,8 @@ namespace codeRed_Capstone.Models
     public class EmployeeDate
     {
 
+      
+
         [Key]
         [Required]
         [Column("ID", TypeName = "int(10)")]
@@ -26,7 +28,7 @@ namespace codeRed_Capstone.Models
 
         [Required]
         //[Timestamp]
-        [Column("ModifiedDate", TypeName = "date")]
+        [Column("ModifiedDate", TypeName = "datetime")]
         public DateTime ModifiedDate { get; set; }
 
         [Required]

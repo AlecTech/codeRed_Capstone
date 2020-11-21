@@ -23,6 +23,7 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee
         public async Task<IActionResult> Index()
         {
+            ViewBag.Employees = GetDates();
             return View(await _context.Employees.ToListAsync());
         }
 
@@ -55,8 +56,11 @@ namespace codeRed_Capstone.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,Phone,Age,City,Department")] Employee employee)
+        public async Task<IActionResult> Create(string firstName, string lastName, string Email, string Phone, int Age, string City, string Department, DateTime HiredDate)
         {
+            var employee = new Employee { FirstName = firstName, LastName = lastName, Email = Email, Phone = Phone, Age = Age, City = City, Department = Department };
+            var employeeDate = new EmployeeDate { HiredDate = HiredDate };
+            employee.EmployeeDates.Add(employeeDate);
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
@@ -147,6 +151,17 @@ namespace codeRed_Capstone.Controllers
         private bool EmployeeExists(int id)
         {
             return _context.Employees.Any(e => e.ID == id);
+        }
+        //Nov20 Adding List on Dates from foreign Table
+        public List<EmployeeDate> GetDates()
+        {
+            List<EmployeeDate> results;
+            using (CompanyContext context = new CompanyContext())
+            {
+                //results = _context.Books.Include(x => x.Author).Include(x => x.Borrows).Where(x => x.Borrows.Any(y => y.Book.Title != null)).ToList();
+                results = _context.EmployeeDates.Include(x => x.Employee).ToList();
+                return results;
+            }
         }
     }
 }

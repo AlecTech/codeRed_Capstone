@@ -16,6 +16,63 @@ namespace codeRed_Capstone.Models
             EmployeeDates = new HashSet<EmployeeDate>();
         }
 
+        public string GetHiredDate
+        {
+            get
+            {
+                var hiredate = "this employee has never been hired";
+                if (EmployeeDates.LastOrDefault() != null)
+                {
+                    hiredate = EmployeeDates.LastOrDefault().HiredDate.ToLongDateString();
+
+                }
+                return hiredate;
+            }
+        }
+        
+        public string GetFiredDate
+        {
+            get
+            {
+                var firedate = "this employee has never been fired";
+                if (EmployeeDates.LastOrDefault() != null && EmployeeDates.LastOrDefault().FiredDate.HasValue)
+                {
+                    firedate = EmployeeDates.LastOrDefault().FiredDate.Value.ToLongDateString();
+                }
+                return firedate;
+            }
+        }
+
+        private DateTime hireddate = DateTime.Now;
+        public DateTime HiredDate
+        {
+            get
+            {
+                //DateTime hiredate = null;
+                //if (EmployeeDates.LastOrDefault() != null )
+                //{
+                //    hiredate = EmployeeDates.LastOrDefault().HiredDate;
+                //}
+                return hireddate;
+            }
+            //set
+            //{
+            //    hireddate = value;
+            //}
+        }
+
+        public DateTime? FiredDate
+        {
+            get
+            {
+                DateTime? firedate = null;
+                if (EmployeeDates.LastOrDefault() != null && EmployeeDates.LastOrDefault().FiredDate.HasValue)
+                {
+                    firedate = EmployeeDates.LastOrDefault().FiredDate.Value;
+                }
+                return firedate;
+            }
+        }
 
         [Key]
         [Required]
