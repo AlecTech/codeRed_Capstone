@@ -44,13 +44,29 @@ namespace codeRed_Capstone.Controllers
 
             return View(employee);
         }
+        // GET: Employee/DetailsBySurname/5
+        public async Task<IActionResult> DetailsBySurname(string lastName)
+        {
+            if (lastName == null)
+            {
+                return NotFound();
+            }
+
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(m => m.LastName == lastName);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
 
         // GET: Employee/Create
         public IActionResult Create(int ID =0)
         {
             return View(new Employee());
         }
-
         // POST: Employee/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -63,7 +79,6 @@ namespace codeRed_Capstone.Controllers
             var employee = new Employee { FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Age = age, City = city, Department = department };
             var employeeDate = new EmployeeDate { HiredDate = HiredDate };
             employee.EmployeeDates.Add(employeeDate);
-
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
@@ -72,7 +87,6 @@ namespace codeRed_Capstone.Controllers
             }
             return View(employee);
         }
-
         // GET: Employee/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -80,7 +94,6 @@ namespace codeRed_Capstone.Controllers
             {
                 return NotFound();
             }
-
             var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
@@ -88,17 +101,20 @@ namespace codeRed_Capstone.Controllers
             }
             return View(employee);
         }
-
         // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //NOV 21 
         public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department,FiredDate")] Employee employee)
+        //public async Task<IActionResult> Edit(int id, string firstName, string lastName, string email, string phone, int age, string city, string department, DateTime firedDate)
         {
+            //var employee = new Employee { FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Age = age, City = city, Department = department };
+            //var employeeDate = new EmployeeDate { FiredDate = firedDate };
+            //employee.EmployeeDates.Add(employeeDate);
             if (id != employee.ID)
             {
                 return NotFound();
             }
-
             if (ModelState.IsValid)
             {
                 try

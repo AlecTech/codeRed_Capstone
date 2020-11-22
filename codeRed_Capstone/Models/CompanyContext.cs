@@ -132,6 +132,8 @@ namespace codeRed_Capstone.Models
             {            
                 entity.Property(e => e.ModifiedDate).ValueGeneratedOnAdd();
 
+                //entity.Property(e => e.FiredDate).HasDefaultValue();
+
                 entity.HasIndex(e => e.EmployeeID)
                  .HasName("FK_" + nameof(EmployeeDate) + "_" + nameof(Employee));
 

@@ -61,19 +61,25 @@ namespace codeRed_Capstone.Models
             //}
         }
         //Nov20 declared another private FireDate property to make it visible inside Create.cshtml
-        //private DateTime fireddate = DateTime.Now;
-        public DateTime? FiredDate
+        private DateTime fireddate = DateTime.Now;
+        public DateTime FiredDate
         {
             get
             {
-                DateTime? fireddate = null;
-                if (EmployeeDates.LastOrDefault() != null && EmployeeDates.LastOrDefault().FiredDate.HasValue)
-                {
-                    fireddate = EmployeeDates.LastOrDefault().FiredDate.Value;
-                }
+                //DateTime? fireddate = null;
+                //if (EmployeeDates.LastOrDefault() != null && EmployeeDates.LastOrDefault().FiredDate.HasValue)
+                //{
+                //    fireddate = EmployeeDates.LastOrDefault().FiredDate.Value;
+                //}
                 return fireddate;
             }
+            //set
+            //{
+            //    fireddate = value;
+            //}
         }
+        //private DateTime? fireddate = DateTime.Now;
+        //public DateTime? FiredDate { get; set; }
 
         [Key]
         [Required]
