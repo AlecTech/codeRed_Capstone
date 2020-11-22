@@ -142,7 +142,7 @@ namespace codeRed_Capstone.Models
                   // Restrict: Throw an exception if we try to orphan a child record.
                   // Cascade: Remove any child records that would be orphaned by a removed parent.
                 
-                  .OnDelete(DeleteBehavior.Restrict)
+                  .OnDelete(DeleteBehavior.Cascade)
                   .HasConstraintName("FK_" + nameof(EmployeeDate) + "_" + nameof(Employee));
 
                 entity.Property(e => e.ModifiedDate).HasDefaultValueSql("NOW()");

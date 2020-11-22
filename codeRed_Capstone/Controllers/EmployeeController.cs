@@ -22,7 +22,7 @@ namespace codeRed_Capstone.Controllers
 
         // GET: Employee
         public async Task<IActionResult> Index()
-        {
+        {   //Nov20 added viewbag to access Dates later inside views
             ViewBag.Employees = GetDates();
             return View(await _context.Employees.ToListAsync());
         }
@@ -56,11 +56,14 @@ namespace codeRed_Capstone.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(string firstName, string lastName, string Email, string Phone, int Age, string City, string Department, DateTime HiredDate)
+        //Nov20 Changed BIND method to regular data management with explicit declaration due to issue with Write to DB 
+        public async Task<IActionResult> Create(string firstName, string lastName, string email, string phone, int age, string city, string department, DateTime HiredDate)
         {
-            var employee = new Employee { FirstName = firstName, LastName = lastName, Email = Email, Phone = Phone, Age = Age, City = City, Department = Department };
+            //Nov20 add 2 objects and append HireDate separately from another Table
+            var employee = new Employee { FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Age = age, City = city, Department = department };
             var employeeDate = new EmployeeDate { HiredDate = HiredDate };
             employee.EmployeeDates.Add(employeeDate);
+
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
@@ -89,7 +92,7 @@ namespace codeRed_Capstone.Controllers
         // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department,FiredDate")] Employee employee)
         {
             if (id != employee.ID)
             {

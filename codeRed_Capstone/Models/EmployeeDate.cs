@@ -10,9 +10,6 @@ namespace codeRed_Capstone.Models
     [Table("employeedate")]
     public class EmployeeDate
     {
-
-      
-
         [Key]
         [Required]
         [Column("ID", TypeName = "int(10)")]

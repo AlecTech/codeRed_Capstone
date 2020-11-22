@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace codeRed_Capstone.Migrations.Company
 {
-    public partial class TwoTables : Migration
+    public partial class ModifiedOnDelete : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +47,7 @@ namespace codeRed_Capstone.Migrations.Company
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     HiredDate = table.Column<DateTime>(type: "date", nullable: false),
                     FiredDate = table.Column<DateTime>(type: "date", nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "date", nullable: false, defaultValueSql: "NOW()"),
+                    ModifiedDate = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "NOW()"),
                     EmployeeID = table.Column<int>(type: "int(10)", nullable: false)
                 },
                 constraints: table =>
@@ -58,7 +58,7 @@ namespace codeRed_Capstone.Migrations.Company
                         column: x => x.EmployeeID,
                         principalTable: "employee",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(

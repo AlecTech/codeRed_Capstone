@@ -211,7 +211,7 @@ namespace codeRed_Capstone.Migrations.Company
                         .WithMany("EmployeeDates")
                         .HasForeignKey("EmployeeID")
                         .HasConstraintName("FK_EmployeeDate_Employee")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

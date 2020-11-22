@@ -9,8 +9,8 @@ using codeRed_Capstone.Models;
 namespace codeRed_Capstone.Migrations.Company
 {
     [DbContext(typeof(CompanyContext))]
-    [Migration("20201121045011_TwoTablesNew")]
-    partial class TwoTablesNew
+    [Migration("20201122013635_ModifiedOnDelete")]
+    partial class ModifiedOnDelete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -213,7 +213,7 @@ namespace codeRed_Capstone.Migrations.Company
                         .WithMany("EmployeeDates")
                         .HasForeignKey("EmployeeID")
                         .HasConstraintName("FK_EmployeeDate_Employee")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

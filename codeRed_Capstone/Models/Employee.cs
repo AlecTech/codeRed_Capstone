@@ -34,7 +34,7 @@ namespace codeRed_Capstone.Models
         {
             get
             {
-                var firedate = "this employee has never been fired";
+                var firedate = "active";
                 if (EmployeeDates.LastOrDefault() != null && EmployeeDates.LastOrDefault().FiredDate.HasValue)
                 {
                     firedate = EmployeeDates.LastOrDefault().FiredDate.Value.ToLongDateString();
@@ -42,7 +42,7 @@ namespace codeRed_Capstone.Models
                 return firedate;
             }
         }
-
+        //Nov20 declared another private HireDate property to make it visible inside Create.cshtml
         private DateTime hireddate = DateTime.Now;
         public DateTime HiredDate
         {
@@ -60,17 +60,18 @@ namespace codeRed_Capstone.Models
             //    hireddate = value;
             //}
         }
-
+        //Nov20 declared another private FireDate property to make it visible inside Create.cshtml
+        //private DateTime fireddate = DateTime.Now;
         public DateTime? FiredDate
         {
             get
             {
-                DateTime? firedate = null;
+                DateTime? fireddate = null;
                 if (EmployeeDates.LastOrDefault() != null && EmployeeDates.LastOrDefault().FiredDate.HasValue)
                 {
-                    firedate = EmployeeDates.LastOrDefault().FiredDate.Value;
+                    fireddate = EmployeeDates.LastOrDefault().FiredDate.Value;
                 }
-                return firedate;
+                return fireddate;
             }
         }
 
