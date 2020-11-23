@@ -5,6 +5,19 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (ViewBag.Message != null)
+{
+    <p class="alert-@(ViewBag.Error != null ? "danger" : "success")">@(ViewBag.Message)</p>
+    if (ViewBag.Error != null)
+    {
+        <ul>
+            @foreach (Exception e in ViewBag.Exception.ValidationExceptions)
+            {
+                <li class="alert-danger">@(e.Message)</li>
+            }
+        </ul>
+    }
+}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,16 +30,16 @@
                 @*<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>*@
             </li>
             @*<li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>*@
+                    <a class="nav-link" href="#">Link</a>
+                </li>*@
             <li class="nav-item dropdown">
                 @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sorting
-                </a>*@
+                        Sorting
+                    </a>*@
                 @*<div action="/Employee/Index" method="get" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Sort by Last Name</a>
-                    <a class="dropdown-item" href="#">Sort by Department</a>
-                </div>*@
+                        <a class="dropdown-item" href="#">Sort by Last Name</a>
+                        <a class="dropdown-item" href="#">Sort by Department</a>
+                    </div>*@
                 <form action="/Employee/Index" method="get">
                     <lable for="filter"> Show Laid of Staff</lable>
                     <input type="checkbox" id="filter" name="filter" value="laidoff" />
@@ -34,8 +47,8 @@
                 </form>
             </li>
             @*<li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>*@
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>*@
         </ul>
         <form action="/Employee/DetailsByPhone" method="get" class="form-inline my-2 my-lg-0">
             <input id="phone" name="phone" class="form-control mr-sm-2" type="search" placeholder="Search by phone" aria-label="Search">
@@ -85,74 +98,74 @@
         @foreach (var item in Model)
         {
             <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Age)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Department)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HiredDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FiredDate)
-                    </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HiredDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FiredDate)
+                </td>
 
-                    @*@foreach (var employee in item.EmployeeDates)
-                    {                      
+                @*@foreach (var employee in item.EmployeeDates)
+                    {
                             <td>@employee.HiredDate</td>
-                            <td>@employee.FiredDate</td>              
+                            <td>@employee.FiredDate</td>
                      }*@
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
-                        <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
-                    </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
 @*@if (ViewBag.Employees.Count > 0)
-{
+    {
 
-    <ol>
+        <ol>
 
-        @foreach (Employee emp in ViewBag.Employees)
-        {
-            <li>
-                <div>
-                    <div><span>ID: </span>@(emp.ID)<a href="/Employee/Details?id=@(emp.ID)">@(emp.LastName)</a> </div>
-                    <div><span>First Name: </span>@(emp.FirstName)</div>
-                    <div><span>Last Name: </span>@(emp.LastName)</div>
-                    <div><span>Email: </span>@(emp.Email)</div>
-                    <div><span>Phone: </span>@(emp.Phone)</div>
-                    <div><span>Age: </span>@(emp.Age)</div>
-                    <div><span>City: </span>@(emp.City)</div>
-                    <div><span>Department: </span>@(emp.Department)</div>
-                    <div><span>Hired Date: </span>@(emp.HiredDate)</div>
-                    <div><span>Fired Date: </span>@(emp.FiredDate)</div>
-                </div>
-            </li>
-        }
-    </ol>
-}
-else
-{
-    <p>No books have been checked out.</p>
-}*@
+            @foreach (Employee emp in ViewBag.Employees)
+            {
+                <li>
+                    <div>
+                        <div><span>ID: </span>@(emp.ID)<a href="/Employee/Details?id=@(emp.ID)">@(emp.LastName)</a> </div>
+                        <div><span>First Name: </span>@(emp.FirstName)</div>
+                        <div><span>Last Name: </span>@(emp.LastName)</div>
+                        <div><span>Email: </span>@(emp.Email)</div>
+                        <div><span>Phone: </span>@(emp.Phone)</div>
+                        <div><span>Age: </span>@(emp.Age)</div>
+                        <div><span>City: </span>@(emp.City)</div>
+                        <div><span>Department: </span>@(emp.Department)</div>
+                        <div><span>Hired Date: </span>@(emp.HiredDate)</div>
+                        <div><span>Fired Date: </span>@(emp.FiredDate)</div>
+                    </div>
+                </li>
+            }
+        </ol>
+    }
+    else
+    {
+        <p>No books have been checked out.</p>
+    }*@

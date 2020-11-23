@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using codeRed_Capstone.Models;
+using codeRed_Capstone.Models.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -21,11 +22,20 @@ namespace codeRed_Capstone.Controllers
             _context = context;
         }
 
+
+        //public async Task<IActionResult> Index()
+        //{  
+        //    ViewBag.Employees = GetDates();
+        //    return View(await _context.Employees.ToListAsync());
+        //}
+
+
         // GET: Employee
-        //OrderBy Code borrowed from https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-5.0
+        //Nov 22 OrderBy Code borrowed from https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-5.0
+
         public async Task<IActionResult> Index(string sortOrder)
         {   //Nov20 added viewbag to access Dates later inside views
-            ViewBag.Employees = GetDates();
+            ViewBag.Employees = GetDates2();
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["EmailSortParm"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
             ViewData["DepSortParm"] = String.IsNullOrEmpty(sortOrder) ? "dep_desc" : "";
@@ -68,13 +78,79 @@ namespace codeRed_Capstone.Controllers
 
             return View(employee);
         }
+
         // GET: Employee/DetailsBySurname/5
         public async Task<IActionResult> DetailsBySurname(string lastName)
         {
-            //ValidationException exception = new ValidationException();
+            ValidationException exception = new ValidationException();
+            lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
+
+            using (CompanyContext context = new CompanyContext())
+            {
+                if (string.IsNullOrWhiteSpace(lastName))
+                {
+                    exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
+                }
+
+                // Category ID fails parse.
+                // Common validation points (5) and (5a).
+                int n;
+                bool isNumeric = int.TryParse(lastName, out n);
+                if (isNumeric)
+                {
+                    exception.ValidationExceptions.Add(new Exception("ID Not Valid string"));
+                }
+                else
+                {
+                    // Category ID exists.
+                    // Common validation point (7).
+                    if (!context.Employees.Any(x => x.LastName == lastName))
+                    {
+                        exception.ValidationExceptions.Add(new Exception("Last Name Does Not Exist"));
+                    }
+                }
+
+                if (lastName.Length > 30)
+                {
+                    // Name too long
+                    // Common validation point (3).
+                    exception.ValidationExceptions.Add(new Exception("The Maximum Length of a Last Name is 30 Characters"));
+                }
+  
+                if (exception.ValidationExceptions.Count > 0)
+                {
+                    throw exception;
+                }
+
+            }
+
             //if (string.IsNullOrEmpty(lastName))
             //{
             //    ModelState.AddModelError("Last Name is required.");
+            //}
+
+            //if (Request.Query.Count > 0)
+            //{
+            //    try
+            //    {
+
+            //        var results = _context.EmployeeDates.Include(x => x.Employee).Where(y => y.Employee.LastName == lastName).ToList();
+            //        if(results.Exists)
+            //        {
+            //            Details(lastName);
+            //            //ViewBag.Message = $"Successfully Created Product {name}!";
+            //        }
+
+            //    }
+            //    // Catch ONLY ValidationException. Any other Exceptions (FormatException, DivideByZeroException, etc) will not get caught, and will break the whole program.
+            //    catch (ValidationException e)
+            //    {
+
+            //        ViewBag.LastName = lastName;
+            //        ViewBag.Message = "There exist problem(s) with your submission, see below.";
+            //        ViewBag.Exception = e;
+            //        ViewBag.Error = true;
+            //    }
             //}
 
             if (lastName == null)
@@ -119,6 +195,7 @@ namespace codeRed_Capstone.Controllers
         {
             return View(new Employee());
         }
+        
         // POST: Employee/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -131,6 +208,7 @@ namespace codeRed_Capstone.Controllers
             var employee = new Employee { FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Age = age, City = city, Department = department };
             var employeeDate = new EmployeeDate { HiredDate = HiredDate };
             employee.EmployeeDates.Add(employeeDate);
+
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
@@ -139,6 +217,7 @@ namespace codeRed_Capstone.Controllers
             }
             return View(employee);
         }
+
         // GET: Employee/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -153,6 +232,7 @@ namespace codeRed_Capstone.Controllers
             }
             return View(employee);
         }
+
         // POST: Employee/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -197,14 +277,12 @@ namespace codeRed_Capstone.Controllers
             {
                 return NotFound();
             }
-
             var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (employee == null)
             {
                 return NotFound();
             }
-
             return View(employee);
         }
 
