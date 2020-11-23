@@ -18,9 +18,11 @@ namespace codeRed_Capstone.Models
 
         [Required]
         [Column("HiredDate", TypeName = "date")]
+        [Display(Name = "Hired On")]
         public DateTime HiredDate { get; set; }
 
         [Column("FiredDate", TypeName = "date")]
+        [Display(Name = "Fired On")]
         public DateTime? FiredDate { get; set; }
 
         [Required]

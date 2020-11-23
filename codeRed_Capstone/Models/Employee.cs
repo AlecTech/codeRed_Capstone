@@ -89,10 +89,12 @@ namespace codeRed_Capstone.Models
 
         [Required]
         [Column("FirstName", TypeName = "varchar(60)")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [Column("LastName", TypeName = "varchar(60)")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]

@@ -14,26 +14,33 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                @*<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>*@
             </li>
             @*<li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
             </li>*@
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sorting
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                </a>*@
+                @*<div action="/Employee/Index" method="get" class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="#">Sort by Last Name</a>
                     <a class="dropdown-item" href="#">Sort by Department</a>
-                    @*<div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>*@
-                </div>
+                </div>*@
+                <form action="/Employee/Index" method="get">
+                    <lable for="filter"> Show Laid of Staff</lable>
+                    <input type="checkbox" id="filter" name="filter" value="laidoff" />
+                    <input type="submit" value="Go!" />
+                </form>
             </li>
             @*<li class="nav-item">
                 <a class="nav-link disabled" href="#">Disabled</a>
             </li>*@
         </ul>
+        <form action="/Employee/DetailsByPhone" method="get" class="form-inline my-2 my-lg-0">
+            <input id="phone" name="phone" class="form-control mr-sm-2" type="search" placeholder="Search by phone" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
         <form action="/Employee/DetailsBySurname" method="get" class="form-inline my-2 my-lg-0">
             <input id="lastName" name="lastName" class="form-control mr-sm-2" type="search" placeholder="Search by Last Name" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -48,10 +55,10 @@
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Phone)
@@ -63,13 +70,13 @@
                 @Html.DisplayNameFor(model => model.City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DepSortParm"]">@Html.DisplayNameFor(model => model.Department)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GetHiredDate)
+                @Html.DisplayNameFor(model => model.HiredDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GetFiredDate)
+                @Html.DisplayNameFor(model => model.FiredDate)
             </th>
             <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create</a></th>
         </tr>
@@ -77,40 +84,46 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GetHiredDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GetFiredDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
-                <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
-                <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
-            </td>
-        </tr>
+            <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Age)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Department)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HiredDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FiredDate)
+                    </td>
+
+                    @*@foreach (var employee in item.EmployeeDates)
+                    {                      
+                            <td>@employee.HiredDate</td>
+                            <td>@employee.FiredDate</td>              
+                     }*@
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
+                        <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                    </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -132,8 +145,8 @@
                     <div><span>Age: </span>@(emp.Age)</div>
                     <div><span>City: </span>@(emp.City)</div>
                     <div><span>Department: </span>@(emp.Department)</div>
-                    <div><span>Hired Date: </span>@(emp.GetHiredDate)</div>
-                    <div><span>Fired Date: </span>@(emp.GetFiredDate)</div>
+                    <div><span>Hired Date: </span>@(emp.HiredDate)</div>
+                    <div><span>Fired Date: </span>@(emp.FiredDate)</div>
                 </div>
             </li>
         }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using codeRed_Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace codeRed_Capstone.Controllers
 {
@@ -21,10 +22,33 @@ namespace codeRed_Capstone.Controllers
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index()
+        //OrderBy Code borrowed from https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/sort-filter-page?view=aspnetcore-5.0
+        public async Task<IActionResult> Index(string sortOrder)
         {   //Nov20 added viewbag to access Dates later inside views
             ViewBag.Employees = GetDates();
-            return View(await _context.Employees.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["EmailSortParm"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+            ViewData["DepSortParm"] = String.IsNullOrEmpty(sortOrder) ? "dep_desc" : "";
+            //ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
+            var emps = from s in _context.Employees
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    emps = emps.OrderByDescending(s => s.LastName);
+                    break;
+                case "email_desc":
+                    emps = emps.OrderByDescending(s => s.Email);
+                    break;
+                case "dep_desc":
+                    emps = emps.OrderByDescending(s => s.Department);
+                    break;
+                default:
+                    emps = emps.OrderBy(s => s.LastName);
+                    break;
+            }
+            return View(await emps.AsNoTracking().ToListAsync());
+            //return View(await _context.Employees.ToListAsync());
         }
 
         // GET: Employee/Details/5
@@ -47,13 +71,41 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee/DetailsBySurname/5
         public async Task<IActionResult> DetailsBySurname(string lastName)
         {
+            //ValidationException exception = new ValidationException();
+            //if (string.IsNullOrEmpty(lastName))
+            //{
+            //    ModelState.AddModelError("Last Name is required.");
+            //}
+
             if (lastName == null)
             {
-                return NotFound();
+                return NotFound(new Exception("Last Name not found"));
             }
 
             var employee = await _context.Employees
                 .FirstOrDefaultAsync(m => m.LastName == lastName);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+        public async Task<IActionResult> DetailsByPhone(string phone)
+        {
+            //ValidationException exception = new ValidationException();
+            //if (string.IsNullOrEmpty(lastName))
+            //{
+            //    ModelState.AddModelError("Last Name is required.");
+            //}
+
+            if (phone == null)
+            {
+                return NotFound(new Exception("Phone not found"));
+            }
+
+            var employee = await _context.Employees
+                .FirstOrDefaultAsync(m => m.Phone == phone);
             if (employee == null)
             {
                 return NotFound();
@@ -179,6 +231,17 @@ namespace codeRed_Capstone.Controllers
             {
                 //results = _context.Books.Include(x => x.Author).Include(x => x.Borrows).Where(x => x.Borrows.Any(y => y.Book.Title != null)).ToList();
                 results = _context.EmployeeDates.Include(x => x.Employee).ToList();
+                return results;
+            }
+        }
+
+        public List<Employee> GetDates2()
+        {
+            List<Employee> results;
+            using (CompanyContext context = new CompanyContext())
+            {
+                //results = _context.Books.Include(x => x.Author).Include(x => x.Borrows).Where(x => x.Borrows.Any(y => y.Book.Title != null)).ToList();
+                results = _context.Employees.Include(x => x.EmployeeDates).ToList();
                 return results;
             }
         }
