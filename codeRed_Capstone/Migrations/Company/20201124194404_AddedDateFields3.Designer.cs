@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using codeRed_Capstone.Models;
 
 namespace codeRed_Capstone.Migrations.Company
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20201124194404_AddedDateFields3")]
+    partial class AddedDateFields3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +45,6 @@ namespace codeRed_Capstone.Migrations.Company
                         .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnName("Email")
                         .HasColumnType("varchar(100)")
@@ -62,11 +63,9 @@ namespace codeRed_Capstone.Migrations.Company
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
                         .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
-                    b.Property<DateTime>("HiredDate")
-                        .ValueGeneratedOnAdd()
+                    b.Property<DateTime?>("HiredDate")
                         .HasColumnName("HiredDate")
-                        .HasColumnType("date")
-                        .HasDefaultValueSql("NOW()");
+                        .HasColumnType("date");
 
                     b.Property<string>("LastName")
                         .IsRequired()

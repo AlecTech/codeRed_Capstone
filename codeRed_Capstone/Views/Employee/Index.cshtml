@@ -4,6 +4,19 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (ViewBag.Message != null)
+{
+    <p class="alert-@(ViewBag.Error != null ? "danger" : "success")">@(ViewBag.Message)</p>
+    if (ViewBag.Error != null)
+    {
+        <ul>
+            @foreach (Exception e in ViewBag.Exception.ValidationExceptions)
+            {
+                <li class="alert-danger">@(e.Message)</li>
+            }
+        </ul>
+    }
+}
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,28 +26,35 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                @*<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>*@
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
+            @*<li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>*@
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+                @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sorting
+                    </a>*@
+                @*<div action="/Employee/Index" method="get" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Sort by Last Name</a>
+                        <a class="dropdown-item" href="#">Sort by Department</a>
+                    </div>*@
+                <form action="/Employee/Index" method="get">
+                    <lable for="filter"> Show Laid of Staff</lable>
+                    <input type="checkbox" id="filter" name="filter" value="laidoff" />
+                    <input type="submit" value="Go!" />
+                </form>
             </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
+            @*<li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>*@
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form action="/Employee/DetailsByEmail" method="get" class="form-inline my-2 my-lg-0">
+            <input id="phone" name="phone" class="form-control mr-sm-2" type="search" placeholder="Search by phone" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <form action="/Employee/DetailsBySurname" method="get" class="form-inline my-2 my-lg-0">
+            <input id="lastName" name="lastName" class="form-control mr-sm-2" type="search" placeholder="Search by Last Name" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -63,6 +83,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Department)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HiredDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FiredDate)
             </th>
             <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create New</a></th>
         </tr>
@@ -93,9 +119,15 @@
                     @Html.DisplayFor(modelItem => item.Department)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i>Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i>Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i>Delete</a>
+                    @Html.DisplayFor(modelItem => item.HiredDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FiredDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
                 </td>
             </tr>
         }

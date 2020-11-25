@@ -10,11 +10,7 @@ namespace codeRed_Capstone.Models
     [Table("employee")]
     public class Employee
     {
-        //default constructor 
-        //public Employee()
-        //{
-        //    Employees = new HashSet<Employee>();
-        //}
+        public DateTime ValidationValidFrom { get; set; }
 
         [Key]
         [Required]
@@ -24,21 +20,25 @@ namespace codeRed_Capstone.Models
 
         [Required]
         [Column("FirstName", TypeName = "varchar(60)")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [Column("LastName", TypeName = "varchar(60)")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "The email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [Column("Email", TypeName = "varchar(100)")]
         public string Email { get; set; }
-
+      
         [Required]
         [Column("Phone", TypeName = "varchar(20)")]
         public string Phone { get; set; }
 
         [Required]
+        [Range(16, 100)]
         [Column("Age", TypeName = "int(1)")]
         public int Age { get; set; }
 
@@ -50,11 +50,21 @@ namespace codeRed_Capstone.Models
         [Column("Department", TypeName = "varchar(100)")]
         public string Department { get; set; }
 
-        //[Timestamp]
-        //[Column("CreatedAt", TypeName = "timestamp")]
-        //public byte[] CreatedAt { get; set; }
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Column("HiredDate", TypeName = "date")]
+        [Display(Name = "Hired On")]
+        public DateTime HiredDate { get; set; }
 
-        //ICollection is for looping through List<Objects> and allows to modify them(Add,Remove) . IEnumerables only allows to loop
-       // public virtual ICollection<Employee> Employees { get; set; }
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        [Column("FiredDate", TypeName = "date")]
+        [Display(Name = "Fired On")]
+        public DateTime? FiredDate { get; set; }
+
+        [Required]
+        [Column("ModifiedDate", TypeName = "datetime")]
+        [Display(Name = "Modified Date")]
+        public DateTime ModifiedDate { get; set; }
+
     }
 }

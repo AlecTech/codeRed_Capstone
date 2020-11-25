@@ -26,12 +26,12 @@ namespace codeRed_Capstone.Models
                     "server=localhost;" +
                     "port=3306;" +
                     "user=root;" +
-                    "database=codered_employeeDB_cf;";
+                    "database=codered_capstone;" +
+                    "Convert Zero Datetime = True;";
                 string version = "10.4.14-MariaDB";
                 optionsBuilder.UseMySql(connection, x => x.ServerVersion(version));
             }
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>(entity =>
@@ -47,6 +47,7 @@ namespace codeRed_Capstone.Models
                 entity.Property(e => e.Email)
                .HasCharSet("utf8mb4")
                .HasCollation("utf8mb4_general_ci");
+                entity.Property(e => e.Email).HasDefaultValue("info@company.ca");
 
                 entity.Property(e => e.Phone)
                .HasCharSet("utf8mb4")
@@ -60,7 +61,16 @@ namespace codeRed_Capstone.Models
                .HasCharSet("utf8mb4")
                .HasCollation("utf8mb4_general_ci");
 
-                entity.Property(e => e.Email).HasDefaultValue("info@company.ca");
+                entity.Property(e => e.HiredDate)
+                .HasColumnType("date");
+                entity.Property(e => e.HiredDate).HasDefaultValueSql("NOW()");
+
+                entity.Property(e => e.FiredDate)
+               .HasColumnType("date");
+
+                entity.Property(e => e.ModifiedDate).ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.ModifiedDate).HasDefaultValueSql("CURRENT_TIMESTAMP()");
 
                 entity.HasData(
                     new Employee()
@@ -72,8 +82,11 @@ namespace codeRed_Capstone.Models
                         Phone = "(780)111-2222",
                         Age = 30,
                         City = "Edmonton",
-                        Department = "IT"
-                       // CreatedAt = new DateTime (GetUtcDate())
+                        Department = "IT",
+                        HiredDate = new DateTime(2020, 01, 01),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                       
                     },
                     new Employee()
                     {
@@ -84,8 +97,11 @@ namespace codeRed_Capstone.Models
                         Phone = "(780)222-3333",
                         Age = 31,
                         City = "Edmonton",
-                        Department = "Sales"
-                       // CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                        Department = "Sales",
+                        HiredDate = new DateTime(2020, 02, 02),
+                        FiredDate = new DateTime(2020, 05, 05),
+                        ModifiedDate = new DateTime()
+                        
                     },
                     new Employee()
                     {
@@ -96,8 +112,11 @@ namespace codeRed_Capstone.Models
                         Phone = "(780)333-4444",
                         Age = 29,
                         City = "Calgary",
-                        Department = "Sales"
-                      //  CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                        Department = "Sales",
+                        HiredDate = new DateTime(2020, 04, 04),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                       
                     },
                     new Employee()
                     {
@@ -108,8 +127,11 @@ namespace codeRed_Capstone.Models
                         Phone = "(403)444-5555",
                         Age = 25,
                         City = "Calgary",
-                        Department = "Accounting"
-                      //  CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                        Department = "Accounting",
+                        HiredDate = new DateTime(2020, 06, 06),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                       
                     },
                     new Employee()
                     {
@@ -120,8 +142,11 @@ namespace codeRed_Capstone.Models
                         Phone = "(780)678-9876",
                         Age = 30,
                         City = "Banff",
-                        Department = "CEO"
-                      //  CreatedAt = new DateTime(2018 - 05 - 11T13: 01:16.7610000 + 05:30)
+                        Department = "CEO",
+                        HiredDate = new DateTime(2020, 07, 07),
+                        FiredDate = null,
+                        ModifiedDate = new DateTime()
+                        
                     }
                 );
             });    

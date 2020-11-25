@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using codeRed_Capstone.Models;
 
 namespace codeRed_Capstone.Migrations.Company
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20201124213853_AddedDateFields4")]
+    partial class AddedDateFields4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,10 +65,8 @@ namespace codeRed_Capstone.Migrations.Company
                         .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
                     b.Property<DateTime>("HiredDate")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("HiredDate")
-                        .HasColumnType("date")
-                        .HasDefaultValueSql("NOW()");
+                        .HasColumnType("date");
 
                     b.Property<string>("LastName")
                         .IsRequired()
