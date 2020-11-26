@@ -68,12 +68,12 @@
             <dd class="col-sm-10">
                 @Html.DisplayFor(modelItem => item.ModifiedDate)
             </dd>
-            <dd>
-                <div class="form-group col-md-2">
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
-                </div>
-            </dd>
         </dl>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
+            </div>
+        </div>
     }
 </div>
 <div class="form-row">

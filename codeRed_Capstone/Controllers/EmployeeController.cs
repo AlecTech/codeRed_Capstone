@@ -168,25 +168,38 @@ namespace codeRed_Capstone.Controllers
         public async Task<IActionResult> DetailsByEmail(string email)
         //public IActionResult DetailsByEmail(string email)
         {
+            //Nov 25 Added validation logic to Search option
+            //if (email == "333")
 
-            if (email=="333")
+            //string exists;
+            bool exists;
+            //exists = _context.Employees.FirstOrDefaultAsync(m => m.Email == email).ToString();
+            if (!(exists = _context.Employees.Any(m => m.Email == email)))
             {
                 //return NotFound(new Exception("Email not found"));
                 ModelState.AddModelError("Email", "Email not found");
 
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.Email == email);
+            //var employee = await _context.Employees
+            //    .FirstOrDefaultAsync(m => m.Email == email);
+
             //if (employee == null)
             //{
             //    return NotFound();
             //}
 
             if (!ModelState.IsValid)
+            {
                 return View();
+            }
+               
             else
+            {
+                var employee = await _context.Employees.FirstOrDefaultAsync(m => m.Email == email);
                 return View(employee);
+            }
+                
             //return  View("~/Views/Employee/Index.cshtml");
         }
         // GET: Employee/Create
