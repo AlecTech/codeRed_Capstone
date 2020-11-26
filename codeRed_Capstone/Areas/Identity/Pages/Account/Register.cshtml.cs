@@ -57,7 +57,10 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            [EmailAddress]
+            //[EmailAddress]
+            [DataType(DataType.EmailAddress)]
+            [EmailAddress(ErrorMessage = "Invalid Email Address")]
+            [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@company\.ca|@company\.com)$", ErrorMessage = "Registration limited to company.ca and company.com")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 

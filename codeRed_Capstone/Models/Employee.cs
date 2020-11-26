@@ -20,20 +20,27 @@ namespace codeRed_Capstone.Models
 
         [Required]
         [Column("FirstName", TypeName = "varchar(60)")]
+        [MaxLength(60, ErrorMessage = "Lenght can not exceed 50 characters")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
         [Column("LastName", TypeName = "varchar(60)")]
+        [MaxLength(60, ErrorMessage = "Lenght can not exceed 50 characters")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        // [RegularExpression(@"^([\w\.\-] +)@([\w\-] +)((\.(\w){2, 3})+)$")]
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", 
+            ErrorMessage = "Invalid Email Format")]
         [Column("Email", TypeName = "varchar(100)")]
         public string Email { get; set; }
       
         [Required]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone format should be: (xxx)xxx-xxxx")]
         [Column("Phone", TypeName = "varchar(20)")]
         public string Phone { get; set; }
 

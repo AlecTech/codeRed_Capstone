@@ -65,7 +65,29 @@ html {
     background-attachment: fixed;
     background-position: center;
 }*/
+/*======NavBar Identiry Hover==========*/
+.navbar-primary .nav-item:after {
+    content: "/";
+    position: absolute;
+    top: 0.25rem;
+    left: auto;
+    right: -0.5rem; /* control the amount of space for the separator */
+}
 
+.navbar-primary .nav-item:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    border-bottom: 1px solid black;
+    transition: 0.4s;
+}
+
+.navbar-primary .nav-item:hover:before {
+    width: 100%;
+}
+/*======NavBar Identiry Hover==========*/
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;

@@ -8,6 +8,8 @@
 <h1>Details</h1>
 
 <div>
+    @if(ViewData.ModelState.IsValid)
+    {
     <h4>Employee</h4>
     <hr />
     <dl class="row">
@@ -67,10 +69,18 @@
             @Html.DisplayFor(model => model.ModifiedDate)
         </dd>
     </dl>
+    }
 </div>
 <div class="form-row">
     <div class="form-group col-md-2">
-        <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary btn-block">Edit</a>
+        @if (@ViewData.ModelState.IsValid)
+        {
+            <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary btn-block">Edit</a>
+        }
+        @if(!ViewData.ModelState.IsValid)
+        {
+            <span class="field-validation-error">@ViewData.ModelState["Email"].Errors[0].ErrorMessage</span>
+        }
     </div>
     <div class="form-group col-md-2">
         <a asp-action="Index" class="btn btn-secondary btn-block">Back to List</a>

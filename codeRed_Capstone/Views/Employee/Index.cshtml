@@ -42,7 +42,7 @@
                 <form action="/Employee/Index" method="get">
                     <lable for="filter"> Show Laid of Staff</lable>
                     <input type="checkbox" id="filter" name="filter" value="laidoff" />
-                    <input type="submit" value="Go!" />
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Go!" />
                 </form>
             </li>
             @*<li class="nav-item">
@@ -50,7 +50,8 @@
                 </li>*@
         </ul>
         <form action="/Employee/DetailsByEmail" method="get" class="form-inline my-2 my-lg-0">
-            <input id="phone" name="phone" class="form-control mr-sm-2" type="search" placeholder="Search by phone" aria-label="Search">
+            <input id="email" name="email" data-val="true" data-val-required="The email is required" class="form-control mr-sm-2" type="search" placeholder="Search by email" aria-label="Search">
+            <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <form action="/Employee/DetailsBySurname" method="get" class="form-inline my-2 my-lg-0">
@@ -67,10 +68,10 @@
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Phone)
@@ -82,7 +83,7 @@
                 @Html.DisplayNameFor(model => model.City)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Department)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DepSortParm"]">@Html.DisplayNameFor(model => model.Department)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HiredDate)
@@ -90,7 +91,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.FiredDate)
             </th>
-            <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create New</a></th>
+            <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create</a></th>
         </tr>
     </thead>
     <tbody>
