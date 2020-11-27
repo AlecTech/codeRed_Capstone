@@ -1,10 +1,24 @@
-﻿@model IEnumerable<codeRed_Capstone.Models.Employee>
+﻿@*@model codeRed_Capstone.Models.Employee*@
+@model IEnumerable<codeRed_Capstone.Models.Employee>
 
 @{
     ViewData["Title"] = "DetailsBySurname";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewBag.Message != null)
+    {
+        <p class="alert-@(ViewBag.Error != null ? "danger" : "success")">@(ViewBag.Message)</p>
+        if (ViewBag.Error != null)
+        {
+            <ul>
+                @foreach (Exception e in ViewBag.Exception.ValidationExceptions)
+                {
+                    <li class="alert-danger">@(e.Message)</li>
+                }
+            </ul>
+        }
+    }
 <h1>Details</h1>
 
 <div>
@@ -74,8 +88,22 @@
                 <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
             </div>
         </div>
+        @*<div class="form-row">
+            <div class="form-group col-md-2">
+                @if (@ViewData.ModelState.IsValid)
+                {
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
+                }
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <span class="field-validation-error">@ViewData.ModelState["Email"].Errors[0].ErrorMessage</span>
+                }
+            </div>
+        </div>*@
     }
 </div>
+
+
 <div class="form-row">
     <div class="form-group col-md-2">
         <a asp-action="Index" class="btn btn-secondary btn-block">Back to List</a>

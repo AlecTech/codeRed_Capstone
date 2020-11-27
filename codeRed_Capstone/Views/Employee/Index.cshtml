@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (ViewBag.Message != null)
+@*@if (ViewBag.Message != null)
 {
     <p class="alert-@(ViewBag.Error != null ? "danger" : "success")">@(ViewBag.Message)</p>
     if (ViewBag.Error != null)
@@ -16,7 +16,7 @@
             }
         </ul>
     }
-}
+}*@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,37 +25,27 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+
             <li class="nav-item active">
-                @*<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>*@
             </li>
-            @*<li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>*@
-            <li class="nav-item dropdown">
-                @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sorting
-                    </a>*@
-                @*<div action="/Employee/Index" method="get" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Sort by Last Name</a>
-                        <a class="dropdown-item" href="#">Sort by Department</a>
-                    </div>*@
+
+            <li class="nav-item dropdown">   
                 <form action="/Employee/Index" method="get">
-                    <lable for="filter"> Show Laid of Staff</lable>
-                    <input type="checkbox" id="filter" name="filter" value="laidoff" />
-                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Go!" />
+                    <lable for="filter"> Laid off Only</lable>
+                    <input type="checkbox" id="filter" name="filter" value="true" />
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Show!" /> |  <a asp-page="/Employee/Index">Back to full List</a>
                 </form>
             </li>
-            @*<li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>*@
+
         </ul>
         <form action="/Employee/DetailsByEmail" method="get" class="form-inline my-2 my-lg-0">
-            <input id="email" name="email" data-val="true" data-val-required="The email is required" class="form-control mr-sm-2" type="search" placeholder="Search by email" aria-label="Search">
+            <input id="email" name="email" data-val="true" data-val-required="Email is required" class="form-control mr-sm-2" type="search" placeholder="Search by Email" aria-label="Search">
             <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <form action="/Employee/DetailsBySurname" method="get" class="form-inline my-2 my-lg-0">
-            <input id="lastName" name="lastName" class="form-control mr-sm-2" type="search" placeholder="Search by Last Name" aria-label="Search">
+            <input id="lastName" name="lastName" data-val="true" data-val-required="Last Name is required" class="form-control mr-sm-2" type="search" placeholder="Search by Last Name" aria-label="Search">
+            <span class="field-validation-valid" data-valmsg-for="lastName" data-valmsg-replace="true"></span>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -86,7 +76,7 @@
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["DepSortParm"]">@Html.DisplayNameFor(model => model.Department)</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HiredDate)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.HiredDate)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FiredDate)

@@ -12,3 +12,6 @@ https://stackoverflow.com/questions/5554524/only-allow-registrations-from-specif
 
 https://stackoverflow.com/questions/28904826/phone-number-validation-mvc
 
+* Sorting by Lastname, Dates, Departments
+
+https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/sort-filter-page?view=aspnetcore-5.0
