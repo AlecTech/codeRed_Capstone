@@ -230,18 +230,6 @@ namespace codeRed_Capstone.Controllers
             return View(new Employee());
         }
 
-        //[AcceptVerbs("GET", "POST")]
-        //public IActionResult VerifyPhone(
-        //[RegularExpression(@"^\d{3}-\d{3}-\d{4}$")] string phone)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return Json($"Phone {phone} has an invalid format. Format: ###-###-####");
-        //    }
-
-        //    return Json(true);
-        //}
-
         // POST: Employee/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -251,6 +239,7 @@ namespace codeRed_Capstone.Controllers
         {
             //var model = new Employee();
             //model.ValidationValidFrom = DateTime.Today;
+
 
             if (ModelState.IsValid)
             {

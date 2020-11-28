@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using codeRed_Capstone.Common;
+//using Microsoft.AspNetCore.Mvc;
 
 namespace codeRed_Capstone.Models
 {
@@ -23,6 +24,7 @@ namespace codeRed_Capstone.Models
         [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
         [Column("FirstName", TypeName = "varchar(60)")]
         [MaxLength(60, ErrorMessage = "Lenght can not exceed 50 characters")]
+        //[Remote(action: "VerifyName", controller: "Users", AdditionalFields = nameof(LastName))]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -30,11 +32,13 @@ namespace codeRed_Capstone.Models
         [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
         [Column("LastName", TypeName = "varchar(60)")]
         [MaxLength(60, ErrorMessage = "Lenght can not exceed 50 characters")]
+        //[Remote(action: "VerifyName", controller: "Users", AdditionalFields = nameof(FirstName))]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         // [RegularExpression(@"^([\w\.\-] +)@([\w\-] +)((\.(\w){2, 3})+)$")]
         [Required(ErrorMessage = "The email address is required")]
+        //[Unique]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", 
             ErrorMessage = "Invalid Email Format")]
@@ -82,11 +86,21 @@ namespace codeRed_Capstone.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(FiredDate.GetValueOrDefault() < HiredDate)
+            if (FiredDate < HiredDate)
             {
-                yield return new ValidationResult("Can not Fire before Hire!", new[] { "FiredDate"});
+                yield return new ValidationResult("Can not Fire before Hire!", new[] { "FiredDate" });
             }
-           
+
         }
+        //[AcceptVerbs("GET", "POST")]
+        //public IActionResult VerifyName(string FirstName, string LastName)
+        //{
+        //    if (!_userService.VerifyName(FirstName, LastName))
+        //    {
+        //        return Json($"A user named {FirstName} {LastName} already exists.");
+        //    }
+
+        //    return Json(true);
+        //}
     }
 }
