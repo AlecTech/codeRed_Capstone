@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using codeRed_Capstone.Common;
 
 namespace codeRed_Capstone.Models
 {
     [Table("employee")]
-    public class Employee
+    public class Employee : IValidatableObject
     {
         public DateTime ValidationValidFrom { get; set; }
 
@@ -19,12 +20,14 @@ namespace codeRed_Capstone.Models
         public int ID { get; set; }
 
         [Required]
+        [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
         [Column("FirstName", TypeName = "varchar(60)")]
         [MaxLength(60, ErrorMessage = "Lenght can not exceed 50 characters")]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
+        [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
         [Column("LastName", TypeName = "varchar(60)")]
         [MaxLength(60, ErrorMessage = "Lenght can not exceed 50 characters")]
         [Display(Name = "Last Name")]
@@ -40,7 +43,8 @@ namespace codeRed_Capstone.Models
       
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone format should be: (xxx)xxx-xxxx")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Phone format should be: (###)###-####")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:(###)###-####}")]
         [Column("Phone", TypeName = "varchar(20)")]
         public string Phone { get; set; }
 
@@ -50,6 +54,7 @@ namespace codeRed_Capstone.Models
         public int Age { get; set; }
 
         [Required]
+        [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
         [Column("City", TypeName = "varchar(100)")]
         public string City { get; set; }
 
@@ -61,11 +66,13 @@ namespace codeRed_Capstone.Models
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Column("HiredDate", TypeName = "date")]
         [Display(Name = "Hired On")]
+        [CurrentDate]
         public DateTime HiredDate { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Column("FiredDate", TypeName = "date")]
         [Display(Name = "Fired On")]
+        [CurrentDate]
         public DateTime? FiredDate { get; set; }
 
         [Required]
@@ -73,5 +80,13 @@ namespace codeRed_Capstone.Models
         [Display(Name = "Modified Date")]
         public DateTime ModifiedDate { get; set; }
 
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if(FiredDate.GetValueOrDefault() < HiredDate)
+            {
+                yield return new ValidationResult("Can not Fire before Hire!", new[] { "FiredDate"});
+            }
+           
+        }
     }
 }

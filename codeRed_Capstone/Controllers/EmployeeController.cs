@@ -94,101 +94,101 @@ namespace codeRed_Capstone.Controllers
          public async Task<IActionResult> DetailsBySurname(string lastName)
         //public IActionResult DetailsBySurname(string lastName)
         {
-            //lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
-            ////============= my validation ===================
-            //if (string.IsNullOrWhiteSpace(lastName))
-            //{
-            //    ModelState.AddModelError("LastName", "Last Name not Provided");
-            //    //exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
-            //}
-
-            //bool exists;
-            //if (!(exists = _context.Employees.Any(m => m.LastName == lastName)))
-            //{
-            //    //return NotFound(new Exception("Email not found"));
-            //    ModelState.AddModelError("LastName", "Last Name not found");
-
-            //}
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return View();
-            //}
-            //else
-            //{
-            //    var employee = _context.Employees.Where(m => m.LastName == lastName);
-            //    return View(employee);
-            //}
-            //============= validation class example =================
-            if (Request.Query.Count > 0)
+            lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
+            //============= my validation ===================
+            if (string.IsNullOrWhiteSpace(lastName))
             {
-                try
-                {
-                    ValidationException exception = new ValidationException();
-                    lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
-
-                    using (CompanyContext context = new CompanyContext())
-                    {
-                        if (string.IsNullOrWhiteSpace(lastName))
-                        {
-                            exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
-                        }
-
-                        // Category ID fails parse.
-                        // Common validation points (5) and (5a).
-                        int n;
-                        bool isNumeric = int.TryParse(lastName, out n);
-                        if (isNumeric)
-                        {
-                            exception.ValidationExceptions.Add(new Exception("ID Not Valid string"));
-                        }
-                        else
-                        {
-                            // Category ID exists.
-                            // Common validation point (7).
-                            if (!context.Employees.Any(x => x.LastName == lastName))
-                            {
-                                exception.ValidationExceptions.Add(new Exception("Last Name Does Not Exist"));
-                            }
-                        }
-
-                        //if (lastName.Length > 30)
-                        //{
-                        //    // Name too long
-                        //    // Common validation point (3).
-                        //    exception.ValidationExceptions.Add(new Exception("The Maximum Length of a Last Name is 30 Characters"));
-                        //}
-
-                        if (exception.ValidationExceptions.Count > 0)
-                        {
-                            throw exception;
-                        }
-                    }
-
-                    var employees = _context.Employees.Where(m => m.LastName == lastName);
-                    // .FirstOrDefaultAsync(m => m.LastName == lastName);
-                    //if (employee == null)
-                    //{
-                    //    return NotFound();
-                    //}
-                    ViewBag.Message = $"Successfully Found {lastName}!";
-
-                    return View(employees);
-
-                }
-                // Catch ONLY ValidationException. Any other Exceptions (FormatException, DivideByZeroException, etc) will not get caught, and will break the whole program.
-                catch (ValidationException e)
-                {
-                    ViewBag.LastName = lastName;
-                    ViewBag.Message = "There exist problem(s) with your submission, see below.";
-                    ViewBag.Exception = e;
-                    ViewBag.Error = true;
-
-                    return View(e);
-                }
+                ModelState.AddModelError("LastName", "Last Name not Provided");
+                //exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
             }
 
-            return View();
+            bool exists;
+            if (!(exists = _context.Employees.Any(m => m.LastName == lastName)))
+            {
+                //return NotFound(new Exception("Email not found"));
+                ModelState.AddModelError("LastName", "Last Name not found");
+
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            else
+            {
+                var employee = _context.Employees.Where(m => m.LastName == lastName);
+                return View(employee);
+            }
+            //============= validation class example =================
+            //if (Request.Query.Count > 0)
+            //{
+            //    try
+            //    {
+            //        ValidationException exception = new ValidationException();
+            //        lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
+
+            //        using (CompanyContext context = new CompanyContext())
+            //        {
+            //            if (string.IsNullOrWhiteSpace(lastName))
+            //            {
+            //                exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
+            //            }
+
+            //            // Category ID fails parse.
+            //            // Common validation points (5) and (5a).
+            //            int n;
+            //            bool isNumeric = int.TryParse(lastName, out n);
+            //            if (isNumeric)
+            //            {
+            //                exception.ValidationExceptions.Add(new Exception("ID Not Valid string"));
+            //            }
+            //            else
+            //            {
+            //                // Category ID exists.
+            //                // Common validation point (7).
+            //                if (!context.Employees.Any(x => x.LastName == lastName))
+            //                {
+            //                    exception.ValidationExceptions.Add(new Exception("Last Name Does Not Exist"));
+            //                }
+            //            }
+
+            //            //if (lastName.Length > 30)
+            //            //{
+            //            //    // Name too long
+            //            //    // Common validation point (3).
+            //            //    exception.ValidationExceptions.Add(new Exception("The Maximum Length of a Last Name is 30 Characters"));
+            //            //}
+
+            //            if (exception.ValidationExceptions.Count > 0)
+            //            {
+            //                throw exception;
+            //            }
+            //        }
+
+            //        var employees = _context.Employees.Where(m => m.LastName == lastName);
+            //        // .FirstOrDefaultAsync(m => m.LastName == lastName);
+            //        //if (employee == null)
+            //        //{
+            //        //    return NotFound();
+            //        //}
+            //        ViewBag.Message = $"Successfully Found {lastName}!";
+
+            //        return View(employees);
+
+            //    }
+            //    // Catch ONLY ValidationException. Any other Exceptions (FormatException, DivideByZeroException, etc) will not get caught, and will break the whole program.
+            //    catch (ValidationException e)
+            //    {
+            //        ViewBag.LastName = lastName;
+            //        ViewBag.Message = "There exist problem(s) with your submission, see below.";
+            //        ViewBag.Exception = e;
+            //        ViewBag.Error = true;
+
+            //        return View(e);
+            //    }
+            //}
+
+            //return View();
         }
         // GET: Employee/DetailsByEmail/5
         public async Task<IActionResult> DetailsByEmail(string email)

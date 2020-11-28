@@ -1,108 +1,105 @@
-﻿@*@model codeRed_Capstone.Models.Employee*@
-@model IEnumerable<codeRed_Capstone.Models.Employee>
+﻿@model IEnumerable<codeRed_Capstone.Models.Employee>
 
 @{
     ViewData["Title"] = "DetailsBySurname";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (ViewBag.Message != null)
-    {
-        <p class="alert-@(ViewBag.Error != null ? "danger" : "success")">@(ViewBag.Message)</p>
-        if (ViewBag.Error != null)
-        {
-            <ul>
-                @foreach (Exception e in ViewBag.Exception.ValidationExceptions)
-                {
-                    <li class="alert-danger">@(e.Message)</li>
-                }
-            </ul>
-        }
-    }
 <h1>Details</h1>
 
 <div>
-    <h4>Employee</h4>
-    <hr />
-    @foreach (var item in Model)
+    @if (ViewData.ModelState.IsValid)
     {
-        <dl class="row">
+        <h4>Employee</h4>
+        <hr />
+        @foreach (var item in Model)
+        {
+            <dl class="row">
 
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(item => item.FirstName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.LastName)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.LastName)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Email)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.Email)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Phone)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.Phone)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Age)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.Age)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.City)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.City)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.Department)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.Department)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.HiredDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.HiredDate)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => item.ModifiedDate)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </dd>
-        </dl>
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
-            </div>
-        </div>
-        @*<div class="form-row">
-            <div class="form-group col-md-2">
-                @if (@ViewData.ModelState.IsValid)
-                {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(item => item.FirstName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.LastName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.Email)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Email)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.Phone)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.Age)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Age)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.City)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.City)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.Department)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.Department)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.HiredDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.HiredDate)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => item.ModifiedDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </dd>
+            </dl>
+            <div class="form-row">
+                <div class="form-group col-md-2">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
-                }
-                @if (!ViewData.ModelState.IsValid)
-                {
-                    <span class="field-validation-error">@ViewData.ModelState["Email"].Errors[0].ErrorMessage</span>
-                }
+                </div>
             </div>
-        </div>*@
+            @*<div class="form-row">
+                    <div class="form-group col-md-2">
+                        @if (@ViewData.ModelState.IsValid)
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
+                        }
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <span class="field-validation-error">@ViewData.ModelState["Email"].Errors[0].ErrorMessage</span>
+                        }
+                    </div>
+                </div>*@
+        }
     }
 </div>
-
+<div class="form-row">
+        <div class="form-group col-md-2">
+        
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <span class="field-validation-error">@ViewData.ModelState["LastName"].Errors[0].ErrorMessage</span>
+            }
+        </div>
+</div>
 
 <div class="form-row">
     <div class="form-group col-md-2">
