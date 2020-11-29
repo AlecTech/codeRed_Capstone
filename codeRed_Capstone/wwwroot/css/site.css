@@ -103,10 +103,22 @@ body {
 /*======Add background image end========*/
 /*=========Table Design and Media Query start======*/
 /*https://css-tricks.com/responsive-data-tables code borrowed and modified*/
+/*.mw-100 {
+    min-width: 100%;
+}*/
+
+#table-fit td,
+#table-fit th {
+    white-space: nowrap;
+    width: 1%;
+}
+
+
+
 table {
     width: 100%;
     border-collapse: collapse;
-    background: #c4c6c5;
+    background: rgba(204, 204, 204, 0.85);
 }
 /* Zebra striping */
 /*tr:nth-of-type(odd) {

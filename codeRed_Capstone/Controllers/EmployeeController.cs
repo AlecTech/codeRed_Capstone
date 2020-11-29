@@ -91,7 +91,7 @@ namespace codeRed_Capstone.Controllers
             return View(employee);
         }
         // GET: Employee/DetailsBySurname/5
-         public async Task<IActionResult> DetailsBySurname(string lastName)
+         public IActionResult DetailsBySurname(string lastName)
         //public IActionResult DetailsBySurname(string lastName)
         {
             lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
