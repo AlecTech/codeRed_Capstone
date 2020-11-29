@@ -33,7 +33,7 @@
                 <form action="/Employee/Index" method="get">
                     <lable for="filter"> Laid off Only</lable>
                     <input type="checkbox" id="filter" name="filter" value="true" />
-                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Show!" /> |  <a asp-page="/Employee/Index">Back to full List</a>
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Show!" />   <a asp-page="/Employee/Index">Back to full List</a>
                 </form>
             </li>
 
@@ -50,7 +50,12 @@
         </form>
     </div>
 </nav>
-
+<div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+@*<div class="progress">
+    <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>*@
 <table class="table table-hover">
     <thead>
         <tr>

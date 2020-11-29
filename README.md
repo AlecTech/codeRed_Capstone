@@ -15,3 +15,8 @@ https://stackoverflow.com/questions/28904826/phone-number-validation-mvc
 * Sorting by Lastname, Dates, Departments
 
 https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/sort-filter-page?view=aspnetcore-5.0
+
+* Re-format table CSS code
+
+https://css-tricks.com/responsive-data-tables/
+

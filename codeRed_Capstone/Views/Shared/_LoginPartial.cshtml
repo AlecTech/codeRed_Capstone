@@ -3,38 +3,44 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
-<ul class="nav justify-content-end">
-    @if (SignInManager.IsSignedIn(User))
-    {
+<nav class="nav justify-content-end">
+@*<nav class="navbar navbar-expand-lg navbar-light bg-light">*@
+@if (SignInManager.IsSignedIn(User))
+{
+    @*<nav class="navbar navbar-expand-lg navbar-light bg-light">*@
+        @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>*@
         @*<div class="collapse navbar-collapse" id="navbarNav">*@
-            <div class="nav navbar-nav navbar-primary w-100 ml-auto">
+        @*<div class="collapse navbar-collapse" id="navbarSupportedContent">*@
+            <ul class="nav navbar-nav navbar-primary w-100 ml-auto nav-item">
+        
+                @*<li class="nav-item">*@
+                <li class="nav-link active nav-item">@Html.ActionLink("Home", "Index")</li>
+                @*</li>*@
                 <li class="nav-item">
-                    <a class="nav-link active">@Html.ActionLink("Home", "Index")</a> 
-                </li>
-                <li class="nav-item">
-                    <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                    <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">  Settings @UserManager.GetUserName(User)!</a>
                 </li>
                 <li class="nav-item">
                     <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Employee", new { area = "" })">
                         <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
                     </form>
                 </li>
-            </div>
+            </ul>
+            @*</div>*@
         @*</div>*@
-
-     
-    }
-    //remove esle statment if you dont want to see Register and Login ancher tags
-    else
+    @*</nav>*@
+}
+//remove esle statment if you dont want to see Register and Login ancher tags
+@*else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
 
 
-    }
-</ul>
+    }*@
+</nav>
