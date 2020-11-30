@@ -14,7 +14,7 @@
         <h4>Employee</h4>
         <hr />
       
-                <dl class="row">
+                <dl class="row" id="formBackground">
 
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.FirstName)
@@ -86,6 +86,8 @@
         }
     </div>
 </div>
-<div class="form-group col-md-2">
-    <a asp-action="Index" class="btn btn-secondary btn-block">Back to List</a>
+<div class="form-row">
+    <div class="form-group col-md-2">
+        <a asp-action="Index" class="btn btn-secondary btn-block">Back to List</a>
+    </div>
 </div>

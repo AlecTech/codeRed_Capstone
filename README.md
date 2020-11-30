@@ -20,3 +20,13 @@ https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/sort-filter-page?view=as
 
 https://css-tricks.com/responsive-data-tables/
 
+* Logo 3D effect CSS code
+
+https://codepen.io/ryandsouza13/pen/yEBJQV
+
+* Figma Presentation WireFrames
+
+https://www.figma.com/file/qvfW7WVl8IXbr0MG5ZiP3n/Wireframing-for-codeRed-Capstone?node-id=0%3A1
+
+
+

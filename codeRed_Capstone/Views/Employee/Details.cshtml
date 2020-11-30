@@ -7,10 +7,12 @@
 
 <h1>Details</h1>
 
-<div>
-    <h4>Employee</h4>
-    <hr />
-    <dl class="row">
+
+<h4>Employee</h4>
+<hr />
+<dl class="row" id="detailsBackground">
+
+    
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -65,8 +67,9 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ModifiedDate)
         </dd>
-    </dl>
-</div>
+   
+</dl>
+
 <div class="form-row">
     <div class="form-group col-md-2">
         <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-primary btn-block">Edit</a>

@@ -6,7 +6,30 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
+/*=======Logo 3D effect start============*/
 
+.logo {
+    position:inherit;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%,-20%);
+    text-transform: uppercase;
+    font-family: verdana;
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #455A64;
+    text-shadow: 
+        1px 1px 1px #919191, 1px 1px 1px #919191, 
+        1px 2px 1px #919191, 1px 2px 1px #919191, 
+        1px 3px 1px #919191, 1px 3px 1px #919191, 
+        1px 4px 1px #919191, 1px 4px 1px #919191, 
+        1px 7px 1px #919191, 1px 5px 1px #919191, 
+        1px 9px 3px rgba(12,12,12,0.4), 
+        1px 11px 5px rgba(12,12,12,0.2), 
+        1px 13px 18px rgba(12,12,12,0.2), 
+        1px 15px 30px rgba(12,12,12,0.4);
+}
+/*=======Logo 3D effect end============*/
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -136,6 +159,7 @@ td, th {
     /*align-items: stretch;*/
 }
 
+
 /*Media Query*/
 /* 
 Max width before this PARTICULAR table gets nasty
@@ -166,6 +190,10 @@ and also iPads specifically.
     tr {
         border: 1px solid #ccc;
     }
+    th{
+        font-size: 20px;
+        font-weight: bold; 
+    }
 
     /* Behave  like a "row" */
     td {       
@@ -173,6 +201,7 @@ and also iPads specifically.
         border-bottom: 1px solid #eee;
         position: relative;
         padding-left: 50%;
+        font-size: 20px;
     }
 
     /* Now like a table header */
@@ -183,6 +212,7 @@ and also iPads specifically.
         width: 45%;
         padding-right: 10px;
         white-space: nowrap;
+        font-size: 20px;
     }
 
      /*Label the data*/
@@ -225,12 +255,49 @@ and also iPads specifically.
 }
 
 /*=========Table Design and Media Query end=================*/
+/*=========Create Form and Details Background start=======*/
+#formBackground {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(204, 204, 204, 0.85);
+}
+#detailsBackground {
+ /*   width: 35%;*/
+    border-collapse: collapse;
+    background: rgba(204, 204, 204, 0.85);
+}
+/*dl {
+    width: 100%;
+    display: inline-flex;
+  
+    background: rgba(204, 204, 204, 0.85);
+}*/
+
+/*dt {
+    background: #999999;
+    display: table-cell;
+    text-align: left;
+    vertical-align: top;
+    width: 80px;
+}
+
+dd {
+    background: #3399ff;
+    margin-left: 0;
+    display: block;
+}
+
+    dt:after, dd:after {
+        clear: both;
+    }*/
+
+/*=========Create Form and Details Background end=======*/
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
 }
 /*for tab control*/
 div.login-logout-tab div.card-header {
