@@ -28,5 +28,14 @@ https://codepen.io/ryandsouza13/pen/yEBJQV
 
 https://www.figma.com/file/qvfW7WVl8IXbr0MG5ZiP3n/Wireframing-for-codeRed-Capstone?node-id=0%3A1
 
+* Identity Page
+
+https://www.c-sharpcorner.com/article/using-asp-net-core-3-0-identity-with-mysql/
+
+* Trello Board Link
+
+https://trello.com/b/Q00eKKMS/capstone-project
+
+
 
 

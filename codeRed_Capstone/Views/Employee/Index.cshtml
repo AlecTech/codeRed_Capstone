@@ -4,19 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*@if (ViewBag.Message != null)
-{
-    <p class="alert-@(ViewBag.Error != null ? "danger" : "success")">@(ViewBag.Message)</p>
-    if (ViewBag.Error != null)
-    {
-        <ul>
-            @foreach (Exception e in ViewBag.Exception.ValidationExceptions)
-            {
-                <li class="alert-danger">@(e.Message)</li>
-            }
-        </ul>
-    }
-}*@
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +17,7 @@
             <li class="nav-item active">
             </li>
 
-            <li class="nav-item dropdown">   
+            <li class="nav-item dropdown">
                 <form action="/Employee/Index" method="get">
                     <lable for="filter"> Laid off Only</lable>
                     <input type="checkbox" id="filter" name="filter" value="true" />
@@ -55,76 +43,80 @@
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
 </div>
 
-    <table class="table table-hover table-responsive" id="table-fit" >
-        <thead>
-            <tr >
-                <th id="firstname">
-                    @Html.DisplayNameFor(model => model.FirstName)
-                </th>
-                <th >
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
-                </th>
-                <th >
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
-                </th>
-                <th id="phone">
-                    @Html.DisplayNameFor(model => model.Phone)
-                </th>
-                <th id="age">
-                    @Html.DisplayNameFor(model => model.Age)
-                </th>
-                <th id="city">
-                    @Html.DisplayNameFor(model => model.City)
-                </th>
-                <th >
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DepSortParm"]">@Html.DisplayNameFor(model => model.Department)</a>
-                </th>
-                <th >
-                    <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.HiredDate)</a>
-                </th>
-                <th id="fireddate">
-                    @Html.DisplayNameFor(model => model.FiredDate)
-                </th>
-                <th > <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i>Create</a></th>
+<table class="table table-hover table-responsive" id="table-fit">
+    <thead>
+        <tr>
+            <th id="firstname">
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["EmailSortParm"]">@Html.DisplayNameFor(model => model.Email)</a>
+            </th>
+            <th id="phone">
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th id="age">
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th id="city">
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DepSortParm"]">@Html.DisplayNameFor(model => model.Department)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DateSortParm"]">@Html.DisplayNameFor(model => model.HiredDate)</a>
+            </th>
+            <th id="fireddate">
+                @Html.DisplayNameFor(model => model.FiredDate)
+            </th>
+            <th> <a asp-action="Create" class="btn btn-outline-success"><i class="far fa-plus-square"></i> Create</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Department)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HiredDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FiredDate)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr >
-                    <td >
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.Phone)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.Age)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.City)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.Department)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.HiredDate)
-                    </td>
-                    <td >
-                        @Html.DisplayFor(modelItem => item.FiredDate)
-                    </td>
-                    <td >
-                        <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
-                        <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
