@@ -36,6 +36,21 @@ https://www.c-sharpcorner.com/article/using-asp-net-core-3-0-identity-with-mysql
 
 https://trello.com/b/Q00eKKMS/capstone-project
 
+* Packages
+
+Microsoft.EntityFrameworkCore.Sq... {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.EntityFrameworkCore.De... {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.VisualStudio.Web.CodeG... {3.1.4}                                  codeRed_Capstone                                                                                                                                       
+FluentValidation                    {9.3.0}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.EntityFrameworkCore.Tools {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.AspNetCore.Mvc.Newtons... {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.EntityFrameworkCore.Sq... {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.AspNetCore.SpaServices... {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.AspNetCore.Identity.UI    {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Microsoft.AspNetCore.Identity.En... {3.1.9}                                  codeRed_Capstone                                                                                                                                       
+Pomelo.EntityFrameworkCore.MySql    {3.2.4}
+
+![alt text](https://github.com/AlecTech/codeRed_Capstone/tree/oneTable/installed_Packages.jpg?raw=true)
 
 
 
