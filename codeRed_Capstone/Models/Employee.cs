@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using codeRed_Capstone.Common;
 //using Microsoft.AspNetCore.Mvc;
+//using Microsoft.AspNetCore.Mvc;
 
 namespace codeRed_Capstone.Models
 {
@@ -43,6 +44,9 @@ namespace codeRed_Capstone.Models
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", 
             ErrorMessage = "Invalid Email Format")]
         [Column("Email", TypeName = "varchar(100)")]
+        //Dec 1 adding validation if email exists
+        //[Remote("CheckEmailAddress", "Validation")]
+       
         public string Email { get; set; }
       
         [Required]

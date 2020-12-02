@@ -121,7 +121,7 @@ body {
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: #464646;
+    /*background-color: #464646;*/
 }
 /*======Add background image end========*/
 /*=========Table Design and Media Query start======*/

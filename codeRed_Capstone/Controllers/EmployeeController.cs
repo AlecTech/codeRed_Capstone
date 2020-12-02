@@ -32,9 +32,7 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee
         public async Task<IActionResult> Index(string sortOrder, bool filter)
         {   //Nov20 added viewbag to access Dates later inside views
-            //ViewBag.Employees = GetDates2();
-          
-
+       
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["EmailSortParm"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
             ViewData["DepSortParm"] = String.IsNullOrEmpty(sortOrder) ? "dep_desc" : "";
@@ -222,6 +220,18 @@ namespace codeRed_Capstone.Controllers
             }              
             //return  View("~/Views/Employee/Index.cshtml");
         }
+
+        //[HttpPost]
+        //public IActionResult CheckEmailAddress(string email)
+        //{
+        //    if (!_context.Employees.Any(x =>x.Email == email))
+        //    {
+        //        return Json($"Email {email} is already registered.");
+        //    }
+
+        //    return Json(true);
+        //}
+
         // GET: Employee/Create
         public IActionResult Create(int ID =0)
         {
@@ -236,10 +246,21 @@ namespace codeRed_Capstone.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,Phone,Age,City,Department,HiredDate")] Employee employee)
-        {
+       {
             //var model = new Employee();
             //model.ValidationValidFrom = DateTime.Today;
 
+            bool exists;
+            if ((exists = _context.Employees.Any(m => m.Email == employee.Email)))
+            {          
+                ModelState.AddModelError("Email", "Email already exists");
+            }
+
+            string departmentNotSelected = "null";
+            if (employee.Department == departmentNotSelected)
+            {
+                ModelState.AddModelError("Department", "Department not selected");
+            }
 
             if (ModelState.IsValid)
             {
