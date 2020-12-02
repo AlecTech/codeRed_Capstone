@@ -31,7 +31,7 @@ namespace codeRed_Capstone.Controllers
 
         // GET: Employee
         public async Task<IActionResult> Index(string sortOrder, bool filter)
-        {   //Nov20 added viewbag to access Dates later inside views
+        {   //sorting and checkbox filtering added here
        
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewData["EmailSortParm"] = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
@@ -68,7 +68,7 @@ namespace codeRed_Capstone.Controllers
                     break;
             }
             return View(await emps.AsNoTracking().ToListAsync());
-            //return View(await _context.Employees.ToListAsync());
+      
         }
 
         // GET: Employee/Details/5
@@ -96,16 +96,13 @@ namespace codeRed_Capstone.Controllers
             //============= my validation ===================
             if (string.IsNullOrWhiteSpace(lastName))
             {
-                ModelState.AddModelError("LastName", "Last Name not Provided");
-                //exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
+                ModelState.AddModelError("LastName", "Last Name not Provided");               
             }
 
             bool exists;
             if (!(exists = _context.Employees.Any(m => m.LastName == lastName)))
-            {
-                //return NotFound(new Exception("Email not found"));
+            {              
                 ModelState.AddModelError("LastName", "Last Name not found");
-
             }
 
             if (!ModelState.IsValid)
@@ -198,15 +195,12 @@ namespace codeRed_Capstone.Controllers
             if (string.IsNullOrWhiteSpace(email))
             {
                 ModelState.AddModelError("Email", "Email not Provided");
-                //exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
             }
 
             bool exists;  
             if (!(exists = _context.Employees.Any(m => m.Email == email)))
             {
-                //return NotFound(new Exception("Email not found"));
                 ModelState.AddModelError("Email", "Email not found");
-
             }        
 
             if (!ModelState.IsValid)
@@ -218,7 +212,7 @@ namespace codeRed_Capstone.Controllers
                 var employee = await _context.Employees.FirstOrDefaultAsync(m => m.Email == email);
                 return View(employee);
             }              
-            //return  View("~/Views/Employee/Index.cshtml");
+            
         }
 
         //[HttpPost]
@@ -251,7 +245,7 @@ namespace codeRed_Capstone.Controllers
             //model.ValidationValidFrom = DateTime.Today;
 
             bool exists;
-            if ((exists = _context.Employees.Any(m => m.Email == employee.Email)))
+            if (exists = _context.Employees.Any(m => m.Email == employee.Email))
             {          
                 ModelState.AddModelError("Email", "Email already exists");
             }
@@ -264,7 +258,6 @@ namespace codeRed_Capstone.Controllers
 
             if (ModelState.IsValid)
             {
-                //VerifyPhone();
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -404,102 +397,3 @@ namespace codeRed_Capstone.Controllers
 
     }
 }
-
-//=============work area for search by email
-//ValidationException exception = new ValidationException();
-//email = !string.IsNullOrWhiteSpace(email) ? email.Trim() : null;
-//=============================================================
-//if (Request.Query.Count > 0)
-//if(email != null)
-// {
-// try
-//  {
-//GetRecordByID(email);
-//var results = _context.Employees.Include(x => x.Employee).Where(x => x.Employee.Email == email).ToList();
-//if (results.Exists)
-// }
-// Catch ONLY ValidationException. Any other Exceptions (FormatException, DivideByZeroException, etc) will not get caught, and will break the whole program.
-// catch (ValidationException e)
-//    {
-//        ViewBag.Email = email;
-//        ViewBag.Message = "There exist problem(s) with your submission, see below.";
-//        ViewBag.Exception = e;
-//        ViewBag.Error = true;
-//    }
-//}
-
-//exception.ValidationExceptions.Add(new Exception("Email Not Provided"));
-
-//else if (!_context.Employees.Any(x => x.Email.ToUpper() != email.ToUpper()))
-//{
-//    exception.ValidationExceptions.Add(new Exception("Email doesn't exist"));
-//}
-
-//if (exception.ValidationExceptions.Count > 0)
-//{
-//    throw exception;
-//}
-
-//var employee = await _context.Employees
-//            .FirstOrDefaultAsync(m => m.Email == email);
-//var employee = _context.Employees
-//            .FirstOrDefaultAsync(m => m.Email == email);
-
-//return View(employee);
-
-
-//else
-//{
-//    // Name is a duplicate.
-//    // Not a common validation point necessarily, but does perform (2).
-//    if(_context.Employees.Any(x => x.Email.ToUpper() == email.ToUpper()))
-//    {
-//        var employee = await _context.Employees
-//            .FirstOrDefaultAsync(m => m.Email == email);
-//        return View(employee);
-//        //ViewBag.Employee = GetRecordByID(id);   
-//        //exception.ValidationExceptions.Add(new Exception("Name Already Exists"));
-//    }
-//    else
-//    {
-
-
-//if (name.Length > 30)
-//{
-//    // Name too long
-//    // Common validation point (3).
-//    exception.ValidationExceptions.Add(new Exception("The Maximum Length of a Name is 30 Characters"));
-//}
-//else
-//{
-//    if (name.ToUpper() == "PAPER CUPS" && parsedCategoryID == context.Categories.Where(x => x.Name == "Kitchen").Single().ID)
-//    {
-//        exception.ValidationExceptions.Add(new Exception("Only Glass Glasses Allowed Here"));
-//    }
-//}
-//}
-//}
-//=======================================================================
-//if (string.IsNullOrEmpty(lastName))
-//{
-//    ModelState.AddModelError("Last Name is required.");
-//}
-//===============================
-//if (Request.Query.Count > 0)
-//{
-//    try
-//    {
-
-//        var results = _context.Employees.Include(x => x.Employee).Where(x => x.Employee.Email == email).ToList();
-//        //if (results.Exists)
-//    }
-//    // Catch ONLY ValidationException. Any other Exceptions (FormatException, DivideByZeroException, etc) will not get caught, and will break the whole program.
-//    catch (ValidationException e)
-//    {
-//        ViewBag.Email = email;
-//        ViewBag.Message = "There exist problem(s) with your submission, see below.";
-//        ViewBag.Exception = e;
-//        ViewBag.Error = true;
-//    }
-//}
-//=====================

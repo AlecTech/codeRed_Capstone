@@ -57,7 +57,7 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
-            //[EmailAddress]
+            //validation to limit that all users are from this company, thats why email domain is limited to company.ca and company.com
             [DataType(DataType.EmailAddress)]
             [EmailAddress(ErrorMessage = "Invalid Email Address")]
             [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@company\.ca|@company\.com)$", ErrorMessage = "Registration limited to company.ca and company.com")]

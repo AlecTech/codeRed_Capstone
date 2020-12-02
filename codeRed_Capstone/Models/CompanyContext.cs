@@ -44,6 +44,7 @@ namespace codeRed_Capstone.Models
                 .HasCharSet("utf8mb4")
                 .HasCollation("utf8mb4_general_ci");
 
+                //if email not provide still pass somehow through "cann't be empty" validation then it will be assigned default value info@company.ca
                 entity.Property(e => e.Email)
                .HasCharSet("utf8mb4")
                .HasCollation("utf8mb4_general_ci");
@@ -61,6 +62,7 @@ namespace codeRed_Capstone.Models
                .HasCharSet("utf8mb4")
                .HasCollation("utf8mb4_general_ci");
 
+                //if Hired date not assigned , then db will assign todays date by default
                 entity.Property(e => e.HiredDate)
                 .HasColumnType("date");
                 entity.Property(e => e.HiredDate).HasDefaultValueSql("NOW()");
@@ -68,10 +70,12 @@ namespace codeRed_Capstone.Models
                 entity.Property(e => e.FiredDate)
                .HasColumnType("date");
 
+                //here timestamp get updates automatically
                 entity.Property(e => e.ModifiedDate).ValueGeneratedOnAddOrUpdate();
 
                 entity.Property(e => e.ModifiedDate).HasDefaultValueSql("CURRENT_TIMESTAMP()");
 
+                //Seed data
                 entity.HasData(
                     new Employee()
                     {

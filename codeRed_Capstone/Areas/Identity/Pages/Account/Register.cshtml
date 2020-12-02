@@ -5,7 +5,7 @@
     Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
 }
 
-<h1>@ViewData["Title"]</h1>
+@*<h1>@ViewData["Title"]</h1>*@
 
 
 <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
@@ -49,8 +49,6 @@
             </div>
         </div>
     </div>
- 
-   
     <button type="submit" class="btn btn-primary btn-block">Register</button>
 </form>
 

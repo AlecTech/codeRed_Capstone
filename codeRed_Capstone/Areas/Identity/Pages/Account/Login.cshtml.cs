@@ -44,7 +44,7 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            //[EmailAddress]
+            //email format validation
             [EmailAddress(ErrorMessage = "Invalid Email Address")]
             [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
             ErrorMessage = "Invalid Email Format")]
