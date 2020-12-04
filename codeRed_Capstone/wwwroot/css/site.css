@@ -109,14 +109,7 @@ html {
   position: relative;
   min-height: 100%;
 }
-/*Trying to add backgroud image*/
-/*#backgroundImg {
-    background-image: url("../img/OnlineWorldAmico.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-}*/
+
 /*======NavBar Identiry Hover start==========*/
 .navbar-primary .nav-item:after {
     content: "/";
@@ -170,10 +163,6 @@ table {
     border-collapse: collapse;
     background: rgba(204, 204, 204, 0.85);
 }
-/* Zebra striping */
-/*tr:nth-of-type(odd) {
-    background: #eee;
-}*/
 
 th {
     background: #ccc;
@@ -208,13 +197,6 @@ and also iPads specifically.
     #firstname, #phone, #age, #city, #fireddate{
     display: none;
     }
-
-        /* Hide table headers (but not display: none;, for accessibility) */
-        /*  thead tr {
-            position: absolute;
-            top: -9999px;
-            left: -9999px;
-        }*/
 
     tr {
         border: 1px solid #ccc;

@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<codeRed_Capstone.Models.Employee>
-
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -106,7 +105,7 @@
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.ID"><i class="fa fa-marker fa-lg"></i></a> |
                     <a asp-action="Details" asp-route-id="@item.ID"> <i class="fas fa-info-circle"></i></a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" onclick="return confirm('You are about to delete this Employee, are you sure?')"><i class="fa fa-trash-alt fa-lg"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="text-danger ml-1" ><i class="fa fa-trash-alt fa-lg"></i></a>
                 </td>
             </tr>
         }

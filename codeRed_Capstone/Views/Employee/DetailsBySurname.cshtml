@@ -76,18 +76,6 @@
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
                 </div>
             </div>
-            @*<div class="form-row">
-                    <div class="form-group col-md-2">
-                        @if (@ViewData.ModelState.IsValid)
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>
-                        }
-                        @if (!ViewData.ModelState.IsValid)
-                        {
-                            <span class="field-validation-error">@ViewData.ModelState["Email"].Errors[0].ErrorMessage</span>
-                        }
-                    </div>
-                </div>*@
         }
     }
 </div>

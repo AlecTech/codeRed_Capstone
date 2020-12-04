@@ -39,7 +39,7 @@ namespace codeRed_Capstone.Models
 
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
-        [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", 
+        [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z.]+$", 
             ErrorMessage = "Invalid Email Format")]
         [Column("Email", TypeName = "varchar(100)")]
         //Dec 1 adding validation if email exists (Server side)
@@ -76,14 +76,14 @@ namespace codeRed_Capstone.Models
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Column("HiredDate", TypeName = "date")]
         [Display(Name = "Hired On")]
-        [CurrentDate]
+        [CurrentDate(ErrorMessage = "Hired Date can not be into the future")]
         public DateTime HiredDate { get; set; }
 
         //Format validation and Cann't be into the future
         [DisplayFormat(DataFormatString = "{0:d}")]
         [Column("FiredDate", TypeName = "date")]
         [Display(Name = "Fired On")]
-        [CurrentDate]
+        [CurrentDate(ErrorMessage = "Fired Date can not be into the future")]
         public DateTime? FiredDate { get; set; }
 
         //Cann't be null validation, so db assigns auto generated value
@@ -101,15 +101,6 @@ namespace codeRed_Capstone.Models
             }
 
         }
-        //[AcceptVerbs("GET", "POST")]
-        //public IActionResult VerifyName(string FirstName, string LastName)
-        //{
-        //    if (!_userService.VerifyName(FirstName, LastName))
-        //    {
-        //        return Json($"A user named {FirstName} {LastName} already exists.");
-        //    }
-
-        //    return Json(true);
-        //}
+ 
     }
 }

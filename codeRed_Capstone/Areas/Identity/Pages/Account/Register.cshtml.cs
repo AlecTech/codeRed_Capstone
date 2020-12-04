@@ -47,11 +47,13 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
             [DataType(DataType.Text)]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
+            [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$", ErrorMessage = "Can not have numbers or special characters")]
             [DataType(DataType.Text)]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
@@ -61,6 +63,7 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
             [DataType(DataType.EmailAddress)]
             [EmailAddress(ErrorMessage = "Invalid Email Address")]
             [RegularExpression(@"^[a-zA-Z0-9._%+-]+(@company\.ca|@company\.com)$", ErrorMessage = "Registration limited to company.ca and company.com")]
+            [MaxLength(60, ErrorMessage = "Lenght can not exceed 60 characters")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 

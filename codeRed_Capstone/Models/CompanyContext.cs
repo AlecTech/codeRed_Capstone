@@ -9,7 +9,6 @@ namespace codeRed_Capstone.Models
 {
     public class CompanyContext : DbContext
     {
-
         public CompanyContext()
         {
         }

@@ -24,12 +24,6 @@ namespace codeRed_Capstone.Controllers
         }
 
         // GET: Employee
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Employees.ToListAsync());
-        //}
-
-        // GET: Employee
         public async Task<IActionResult> Index(string sortOrder, bool filter)
         {   //sorting and checkbox filtering added here
        
@@ -114,76 +108,7 @@ namespace codeRed_Capstone.Controllers
                 var employee = _context.Employees.Where(m => m.LastName == lastName);
                 return View(employee);
             }
-            //============= validation class example =================
-            //if (Request.Query.Count > 0)
-            //{
-            //    try
-            //    {
-            //        ValidationException exception = new ValidationException();
-            //        lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
-
-            //        using (CompanyContext context = new CompanyContext())
-            //        {
-            //            if (string.IsNullOrWhiteSpace(lastName))
-            //            {
-            //                exception.ValidationExceptions.Add(new Exception("Last Name Not Provided"));
-            //            }
-
-            //            // Category ID fails parse.
-            //            // Common validation points (5) and (5a).
-            //            int n;
-            //            bool isNumeric = int.TryParse(lastName, out n);
-            //            if (isNumeric)
-            //            {
-            //                exception.ValidationExceptions.Add(new Exception("ID Not Valid string"));
-            //            }
-            //            else
-            //            {
-            //                // Category ID exists.
-            //                // Common validation point (7).
-            //                if (!context.Employees.Any(x => x.LastName == lastName))
-            //                {
-            //                    exception.ValidationExceptions.Add(new Exception("Last Name Does Not Exist"));
-            //                }
-            //            }
-
-            //            //if (lastName.Length > 30)
-            //            //{
-            //            //    // Name too long
-            //            //    // Common validation point (3).
-            //            //    exception.ValidationExceptions.Add(new Exception("The Maximum Length of a Last Name is 30 Characters"));
-            //            //}
-
-            //            if (exception.ValidationExceptions.Count > 0)
-            //            {
-            //                throw exception;
-            //            }
-            //        }
-
-            //        var employees = _context.Employees.Where(m => m.LastName == lastName);
-            //        // .FirstOrDefaultAsync(m => m.LastName == lastName);
-            //        //if (employee == null)
-            //        //{
-            //        //    return NotFound();
-            //        //}
-            //        ViewBag.Message = $"Successfully Found {lastName}!";
-
-            //        return View(employees);
-
-            //    }
-            //    // Catch ONLY ValidationException. Any other Exceptions (FormatException, DivideByZeroException, etc) will not get caught, and will break the whole program.
-            //    catch (ValidationException e)
-            //    {
-            //        ViewBag.LastName = lastName;
-            //        ViewBag.Message = "There exist problem(s) with your submission, see below.";
-            //        ViewBag.Exception = e;
-            //        ViewBag.Error = true;
-
-            //        return View(e);
-            //    }
-            //}
-
-            //return View();
+   
         }
         // GET: Employee/DetailsByEmail/5
         public async Task<IActionResult> DetailsByEmail(string email)
@@ -215,17 +140,6 @@ namespace codeRed_Capstone.Controllers
             
         }
 
-        //[HttpPost]
-        //public IActionResult CheckEmailAddress(string email)
-        //{
-        //    if (!_context.Employees.Any(x =>x.Email == email))
-        //    {
-        //        return Json($"Email {email} is already registered.");
-        //    }
-
-        //    return Json(true);
-        //}
-
         // GET: Employee/Create
         public IActionResult Create(int ID =0)
         {
@@ -243,6 +157,23 @@ namespace codeRed_Capstone.Controllers
        {
             //var model = new Employee();
             //model.ValidationValidFrom = DateTime.Today;
+            employee.FirstName = !string.IsNullOrWhiteSpace(employee.FirstName) ? employee.FirstName.Trim() : null;
+            if (string.IsNullOrWhiteSpace(employee.FirstName))
+            {
+                ModelState.AddModelError("FirstName", "First Name not Provided");
+            }
+
+            employee.LastName = !string.IsNullOrWhiteSpace(employee.LastName) ? employee.LastName.Trim() : null;
+            if (string.IsNullOrWhiteSpace(employee.LastName))
+            {
+                ModelState.AddModelError("LastName", "Last Name not Provided");
+            }
+
+            employee.Email = !string.IsNullOrWhiteSpace(employee.Email) ? employee.Email.Trim() : null;
+            if (string.IsNullOrWhiteSpace(employee.Email))
+            {
+                ModelState.AddModelError("Email", "Email not Provided");
+            }
 
             bool exists;
             if (exists = _context.Employees.Any(m => m.Email == employee.Email))
@@ -344,8 +275,6 @@ namespace codeRed_Capstone.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-
 
         private bool EmployeeExists(int id)
         {
