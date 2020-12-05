@@ -4,9 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 //NOV 17 add using statement for dependancy injection
 using codeRed_Capstone.Models;
+//Dec 5 added service for cookies
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+//Dec 5 added service for cookies
+using Microsoft.AspNetCore.Identity;
 //NOV17 IMPORTED FOR USESQLSERVER 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +33,16 @@ namespace codeRed_Capstone
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+
+            // cookie policy to deal with temporary browser incompatibilities
+            //services.AddSameSiteCookiePolicy();
+            //services.AddDefaultAllowAllCors();
+            services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, option =>
+            {
+                option.Cookie.Name = "codeRedCookie"; // change cookie name
+                option.ExpireTimeSpan = TimeSpan.FromDays(1); // change cookie expire time span
+            });
 
             //NOV17 inject dependancy
             services.AddDbContext<CompanyContext>();
