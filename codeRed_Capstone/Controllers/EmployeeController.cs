@@ -9,7 +9,8 @@ using Microsoft.EntityFrameworkCore.Internal;
 using codeRed_Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
 using codeRed_Capstone.Models.Exceptions;
-
+//Dec7 added for post protection
+//using System.Net;
 
 namespace codeRed_Capstone.Controllers
 {
@@ -68,6 +69,14 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            bool employeeFound = EmployeeExists(id.Value);
+
+            if(!employeeFound)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -198,14 +207,24 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            bool employeeFound = EmployeeExists(id.Value);
+
+            if (!employeeFound)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
+
             if (id == null)
             {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 return NotFound();
             }
 
             var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
+                //return HttpNotFound();
                 return NotFound();
             }
             return View(employee);
@@ -259,6 +278,14 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            bool employeeFound = EmployeeExists(id.Value);
+
+            if (!employeeFound)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id.Value);
+            }
+
             if (id == null)
             {
                 return NotFound();
