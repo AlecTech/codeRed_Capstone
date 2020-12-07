@@ -25,8 +25,8 @@ namespace codeRed_Capstone.Models
                     "server=localhost;" +
                     "port=3306;" +
                     "user=root;" +
-                    "database=codered_capstone;" +
-                    "Convert Zero Datetime = True;";
+                    "database=codered_capstone;";
+                    //"Convert Zero Datetime = True;";
                 string version = "10.4.14-MariaDB";
                 optionsBuilder.UseMySql(connection, x => x.ServerVersion(version));
             }
@@ -75,11 +75,7 @@ namespace codeRed_Capstone.Models
                 entity.Property(e => e.ModifiedDate).HasDefaultValueSql("CURRENT_TIMESTAMP()");
 
                 entity.Property(e => e.TimesModified).HasDefaultValue(1);
-
-                //entity.Property(e => e.TimesModified).ValueGeneratedOnAddOrUpdate();
-
-                
-
+            
                 //Seed data
                 entity.HasData(
                     new Employee()
@@ -95,7 +91,7 @@ namespace codeRed_Capstone.Models
                         HiredDate = new DateTime(2020, 01, 01),
                         FiredDate = null,
                         ModifiedDate = new DateTime(),
-                       TimesModified = 1
+                        TimesModified = 1
                     },
                     new Employee()
                     {
@@ -110,7 +106,7 @@ namespace codeRed_Capstone.Models
                         HiredDate = new DateTime(2020, 02, 02),
                         FiredDate = new DateTime(2020, 05, 05),
                         ModifiedDate = new DateTime(),
-                         TimesModified = 1
+                        TimesModified = 1
                     },
                     new Employee()
                     {

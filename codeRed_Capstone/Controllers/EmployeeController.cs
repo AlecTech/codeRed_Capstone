@@ -136,8 +136,7 @@ namespace codeRed_Capstone.Controllers
             {
                 var employee = await _context.Employees.FirstOrDefaultAsync(m => m.Email == email);
                 return View(employee);
-            }              
-            
+            }                         
         }
 
         // GET: Employee/Create
@@ -216,37 +215,10 @@ namespace codeRed_Capstone.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-        //public async Task<IActionResult> Edit(int id, string firstName, string lastName, string email, string phone, int age, string city, string department, DateTime hiredDate, DateTime? firedDate = null)
-        //{
-        //var employee = new Employee { ID = id, FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Age = age, City = city, Department = department, HiredDate = hiredDate, FiredDate = firedDate };
-        //employee.TimesModified++;
-
-        //db.Contacts.Where(c => c.Id == id).Update(c => new Contact { Clicks = c.Clicks + 1 });
-        //employee = _context.Employees.FirstOrDefault(x => x.ID == employee.ID);
-        // employee.TimesModified = employee.TimesModified + 1;
-        //var times = _context.Employees.FirstOrDefault(x =>x.ID == id).Update(employee.TimesModified++);
-        //var newEmployee = _context.Employees.FirstOrDefault(x => x.ID == employee.ID);
-        //employee.TimesModified = newEmployee.TimesModified + 1;
-
-        //var tm = _context.Employees.Select(e => e.ID == employee.ID).Select(e => e.TimesModified).First();
-        //employee.TimesModified = tm + 1;
-
-        //public async Task<IActionResult> Edit(int id, string firstName, string lastName, string email, string phone, int age, string city, string department, DateTime hiredDate, int timesModified, DateTime? firedDate = null)
-        //{
-        //        var employee = new Employee { ID = id, FirstName = firstName, LastName = lastName, Email = email, Phone = phone, Age = age, City = city, Department = department, HiredDate = hiredDate, FiredDate = firedDate, TimesModified = timesModified};
-
-        //    //employee.TimesModified++;
-        //   var employee = _context.Employees.FirstOrDefault(x => x.ID == id);
-        //    employee.TimesModified = employee.TimesModified + 1;
-
-        //employee = _context.Employees.FirstOrDefault(x => x.ID == id);
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department,HiredDate,FiredDate, TimesModified")] Employee employee)
         {
-          
-
 
             if (id != employee.ID)
             {
@@ -254,35 +226,18 @@ namespace codeRed_Capstone.Controllers
             }     
             if (ModelState.IsValid)
             {
-
-
-
                 try
-                {
-                    //employee = await _context.Employees.Where(e => e.ID == employee.ID).FirstOrDefaultAsync();
+                {                
+                    _context.Update(employee);
+                    await _context.SaveChangesAsync();
 
-                    //employee.TimesModified += 1;
-                    //// _context.Entry(employee).State = EntityState.Modified;
+                    employee = await _context.Employees.Where(e => e.ID == employee.ID).FirstOrDefaultAsync();
+                    employee.TimesModified += 1;
+                    // _context.Entry(employee).State = EntityState.Modified;
 
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
-
-                // _context.Update(employee);
-                // _context.Update(employee);
-                //await _context.SaveChangesAsync();
-
-                //var newEmployee = _context.Update(employee.TimesModified++);
-
-                //var newEmployee = _context.Employees.FirstOrDefault(x => x.ID == id);
-                //employee.TimesModified= newEmployee.TimesModified + 1;
-                //await _context.SaveChangesAsync();
-
-                //var newEmployee = _context.Employees.FirstOrDefault(x => x.ID == employee.ID);
-                //employee.TimesModified = newEmployee.TimesModified + 1;
-                // employee.TimesModified++;
-                //_context.Update(employee.TimesModified++);
-                // await _context.SaveChangesAsync();
 
                 catch (DbUpdateConcurrencyException)
                 {
@@ -295,19 +250,7 @@ namespace codeRed_Capstone.Controllers
                         throw;
                     }
                 }
-                using (var context = new CompanyContext())
-                {
-                    employee = await context.Employees.Where(e => e.ID == employee.ID).FirstOrDefaultAsync();
-
-                    employee.TimesModified += 1;
-                    // _context.Entry(employee).State = EntityState.Modified;
-
-                    context.Update(employee);
-                    await context.SaveChangesAsync();
-                }
-
-           
-
+     
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);

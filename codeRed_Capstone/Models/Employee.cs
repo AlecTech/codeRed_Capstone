@@ -12,11 +12,7 @@ namespace codeRed_Capstone.Models
     //IValidatebleObject added because I added CurrentDate Attribute (inside Common Folder) to validate dates(cann't be into the future dates)
     [Table("employee")]
     public class Employee : IValidatableObject
-    {
-        //public DateTime ValidationValidFrom { get; set; }
-
-       
-
+    {            
         [Key]
         [Required]
         [Column("ID", TypeName = "int(10)")]
