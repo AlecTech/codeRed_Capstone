@@ -243,36 +243,37 @@ namespace codeRed_Capstone.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department,HiredDate,FiredDate,TimesModified")] Employee employee)
+        //public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department,HiredDate,FiredDate, TimesModified")] Employee employee)
+        //{
+        public async Task<IActionResult> Edit(int id, string firstName, string lastName, string email, string phone, int age, string city, string department, DateTime hiredDate, int timesModified, DateTime? firedDate = null)
         {
-            employee = await _context.Employees.Where(e => e.ID == employee.ID).FirstOrDefaultAsync();
-
-            employee.TimesModified += 1;
-            // _context.Entry(employee).State = EntityState.Modified;
-
-            _context.Update(employee);
-            await _context.SaveChangesAsync();
-
-
-            if (id != employee.ID)
+            var employee = await _context.Employees.Where(e => e.ID == id).FirstOrDefaultAsync();
+            
+            if (employee == null)
             {
                 return NotFound();
-            }     
+            }
             if (ModelState.IsValid)
             {
-
-
-
-                //try
-                //{                  
-                //    employee = await _context.Employees.Where(e => e.ID == employee.ID).FirstOrDefaultAsync();
-                  
-                //    employee.TimesModified += 1;
-                //   // _context.Entry(employee).State = EntityState.Modified;
-
-                //    _context.Update(employee);
-                //    await _context.SaveChangesAsync();                  
-                //}
+                try
+                {
+                    
+                    employee.FirstName = firstName;
+                    employee.LastName = lastName;
+                    employee.Email = email;
+                    employee.Phone = phone;
+                    employee.Age = age;
+                    employee.City = city;
+                    employee.Department = department;
+                    employee.HiredDate = hiredDate;
+                    employee.FiredDate = firedDate;
+                   
+                    employee.TimesModified += 1;
+                    // _context.Entry(employee).State = EntityState.Modified;
+                    
+                    _context.Update(employee);
+                    await _context.SaveChangesAsync();
+                }
 
                 // _context.Update(employee);
                 // _context.Update(employee);
@@ -290,17 +291,30 @@ namespace codeRed_Capstone.Controllers
                 //_context.Update(employee.TimesModified++);
                 // await _context.SaveChangesAsync();
 
-                //catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EmployeeExists(employee.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                //using (var context = new CompanyContext())
                 //{
-                //    if (!EmployeeExists(employee.ID))
-                //    {
-                //        return NotFound();
-                //    }
-                //    else
-                //    {
-                //        throw;
-                //    }
+                //    employee = await context.Employees.Where(e => e.ID == employee.ID).FirstOrDefaultAsync();
+
+                //    employee.TimesModified += 1;
+                //    // _context.Entry(employee).State = EntityState.Modified;
+
+                //    context.Update(employee);
+                //    await context.SaveChangesAsync();
                 //}
+
+           
+
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
