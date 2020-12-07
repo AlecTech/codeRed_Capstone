@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using codeRed_Capstone.Models;
 
 namespace codeRed_Capstone.Migrations.Company
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20201205200408_AddedDateFields8")]
+    partial class AddedDateFields8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,12 +92,6 @@ namespace codeRed_Capstone.Migrations.Company
                         .HasAnnotation("MySql:CharSet", "utf8mb4")
                         .HasAnnotation("MySql:Collation", "utf8mb4_general_ci");
 
-                    b.Property<int>("TimesModified")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("TimesModified")
-                        .HasColumnType("int(1)")
-                        .HasDefaultValue(1);
-
                     b.HasKey("ID");
 
                     b.ToTable("employee");
@@ -112,8 +108,7 @@ namespace codeRed_Capstone.Migrations.Company
                             HiredDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Smith",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Phone = "(780)111-2222",
-                            TimesModified = 0
+                            Phone = "(780)111-2222"
                         },
                         new
                         {
@@ -127,8 +122,7 @@ namespace codeRed_Capstone.Migrations.Company
                             HiredDate = new DateTime(2020, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Johnson",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Phone = "(780)222-3333",
-                            TimesModified = 0
+                            Phone = "(780)222-3333"
                         },
                         new
                         {
@@ -141,8 +135,7 @@ namespace codeRed_Capstone.Migrations.Company
                             HiredDate = new DateTime(2020, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Sandler",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Phone = "(780)333-4444",
-                            TimesModified = 0
+                            Phone = "(780)333-4444"
                         },
                         new
                         {
@@ -155,8 +148,7 @@ namespace codeRed_Capstone.Migrations.Company
                             HiredDate = new DateTime(2020, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Alba",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Phone = "(403)444-5555",
-                            TimesModified = 0
+                            Phone = "(403)444-5555"
                         },
                         new
                         {
@@ -169,8 +161,7 @@ namespace codeRed_Capstone.Migrations.Company
                             HiredDate = new DateTime(2020, 7, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastName = "Moss",
                             ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Phone = "(780)678-9876",
-                            TimesModified = 0
+                            Phone = "(780)678-9876"
                         });
                 });
 #pragma warning restore 612, 618

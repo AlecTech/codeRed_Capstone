@@ -74,6 +74,12 @@ namespace codeRed_Capstone.Models
 
                 entity.Property(e => e.ModifiedDate).HasDefaultValueSql("CURRENT_TIMESTAMP()");
 
+                entity.Property(e => e.TimesModified).HasDefaultValue(1);
+
+                //entity.Property(e => e.TimesModified).ValueGeneratedOnAddOrUpdate();
+
+                
+
                 //Seed data
                 entity.HasData(
                     new Employee()
@@ -88,8 +94,8 @@ namespace codeRed_Capstone.Models
                         Department = "IT",
                         HiredDate = new DateTime(2020, 01, 01),
                         FiredDate = null,
-                        ModifiedDate = new DateTime()
-                       
+                        ModifiedDate = new DateTime(),
+                       TimesModified = 1
                     },
                     new Employee()
                     {
@@ -103,8 +109,8 @@ namespace codeRed_Capstone.Models
                         Department = "Sales",
                         HiredDate = new DateTime(2020, 02, 02),
                         FiredDate = new DateTime(2020, 05, 05),
-                        ModifiedDate = new DateTime()
-                        
+                        ModifiedDate = new DateTime(),
+                         TimesModified = 1
                     },
                     new Employee()
                     {
@@ -118,8 +124,8 @@ namespace codeRed_Capstone.Models
                         Department = "Sales",
                         HiredDate = new DateTime(2020, 04, 04),
                         FiredDate = null,
-                        ModifiedDate = new DateTime()
-                       
+                        ModifiedDate = new DateTime(),
+                        TimesModified = 1
                     },
                     new Employee()
                     {
@@ -133,8 +139,8 @@ namespace codeRed_Capstone.Models
                         Department = "Accounting",
                         HiredDate = new DateTime(2020, 06, 06),
                         FiredDate = null,
-                        ModifiedDate = new DateTime()
-                       
+                        ModifiedDate = new DateTime(),
+                        TimesModified = 1
                     },
                     new Employee()
                     {
@@ -148,8 +154,8 @@ namespace codeRed_Capstone.Models
                         Department = "CEO",
                         HiredDate = new DateTime(2020, 07, 07),
                         FiredDate = null,
-                        ModifiedDate = new DateTime()
-                        
+                        ModifiedDate = new DateTime(),
+                        TimesModified = 1
                     }
                 );
             });    

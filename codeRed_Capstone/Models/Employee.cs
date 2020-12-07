@@ -13,7 +13,9 @@ namespace codeRed_Capstone.Models
     [Table("employee")]
     public class Employee : IValidatableObject
     {
-        public DateTime ValidationValidFrom { get; set; }
+        //public DateTime ValidationValidFrom { get; set; }
+
+       
 
         [Key]
         [Required]
@@ -91,6 +93,11 @@ namespace codeRed_Capstone.Models
         [Column("ModifiedDate", TypeName = "datetime")]
         [Display(Name = "Modified Date")]
         public DateTime ModifiedDate { get; set; }
+
+        [Required]
+        [Column("TimesModified", TypeName = "int(1)")]
+        [Display(Name = "Times Modified")]
+        public int TimesModified { get; set; }
 
         //Fired date cann't be less than HiredDate validation
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
