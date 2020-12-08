@@ -23,7 +23,6 @@ namespace codeRed_Capstone.Controllers
         {
             _context = context;
         }
-
         // GET: Employee
         public async Task<IActionResult> Index(string sortOrder, bool filter)
         {   //sorting and checkbox filtering added here
@@ -62,8 +61,7 @@ namespace codeRed_Capstone.Controllers
                     emps = emps.OrderBy(s => s.LastName);
                     break;
             }
-            return View(await emps.AsNoTracking().ToListAsync());
-      
+            return View(await emps.AsNoTracking().ToListAsync());      
         }
 
         // GET: Employee/Details/5
@@ -151,8 +149,6 @@ namespace codeRed_Capstone.Controllers
         // GET: Employee/Create
         public IActionResult Create(int ID =0)
         {
-            //var model = new Employee();
-            //model.ValidationValidFrom = DateTime.Today;
             return View(new Employee());
         }
 
@@ -216,15 +212,13 @@ namespace codeRed_Capstone.Controllers
             }
 
             if (id == null)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            {               
                 return NotFound();
             }
 
             var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
-            {
-                //return HttpNotFound();
+            {                
                 return NotFound();
             }
             return View(employee);
@@ -238,7 +232,7 @@ namespace codeRed_Capstone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Phone,Age,City,Department,HiredDate,FiredDate, TimesModified")] Employee employee)
         {
-
+         
             if (id != employee.ID)
             {
                 return NotFound();
@@ -318,47 +312,47 @@ namespace codeRed_Capstone.Controllers
         }
 
         //public void GetRecordByID(string email)
-        public Employee GetRecordByID(string email)
-        {
-            //Debug.WriteLine($"DATA - GetBookByID({id})");
+        //public Employee GetRecordByID(string email)
+        //{
+        //    //Debug.WriteLine($"DATA - GetBookByID({id})");
 
-            ValidationException exception = new ValidationException();
-            using (var context = new CompanyContext())
-            {
+        //    ValidationException exception = new ValidationException();
+        //    using (var context = new CompanyContext())
+        //    {
 
                 
-                int parsedEmail = 0;
-                if (string.IsNullOrWhiteSpace(email))
-                {
-                    exception.ValidationExceptions.Add(new Exception("Email Not Provided"));
-                }
-                else
-                {
+        //        int parsedEmail = 0;
+        //        if (string.IsNullOrWhiteSpace(email))
+        //        {
+        //            exception.ValidationExceptions.Add(new Exception("Email Not Provided"));
+        //        }
+        //        else
+        //        {
                     
-                    // Common validation points (5) and (5a).
-                    if (int.TryParse(email, out parsedEmail))
-                    {
-                        exception.ValidationExceptions.Add(new Exception("Email Not Valid, please enter string"));
-                    }
-                    else
-                    {
-                        // Category ID exists.
-                        // Common validation point (7).
-                        if (!context.Employees.Any(x => x.Email == email))
-                        {
-                            exception.ValidationExceptions.Add(new Exception("Email Does Not Exist"));
-                        }
-                    }
+        //            // Common validation points (5) and (5a).
+        //            if (int.TryParse(email, out parsedEmail))
+        //            {
+        //                exception.ValidationExceptions.Add(new Exception("Email Not Valid, please enter string"));
+        //            }
+        //            else
+        //            {
+        //                // Category ID exists.
+        //                // Common validation point (7).
+        //                if (!context.Employees.Any(x => x.Email == email))
+        //                {
+        //                    exception.ValidationExceptions.Add(new Exception("Email Does Not Exist"));
+        //                }
+        //            }
 
-                }
-            }
+        //        }
+        //    }
 
-            if (exception.ValidationExceptions.Count > 0)
-            {
-                throw exception;
-            }
-            return _context.Employees.Where(x => x.Email == email).Single();
-        }
+        //    if (exception.ValidationExceptions.Count > 0)
+        //    {
+        //        throw exception;
+        //    }
+        //    return _context.Employees.Where(x => x.Email == email).Single();
+        //}
 
     }
 }
