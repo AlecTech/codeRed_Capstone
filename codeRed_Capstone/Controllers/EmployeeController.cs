@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using codeRed_Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
-using codeRed_Capstone.Models.Exceptions;
 
 namespace codeRed_Capstone.Controllers
 {
