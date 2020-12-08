@@ -303,6 +303,10 @@ namespace codeRed_Capstone.Controllers
         {
             return _context.Employees.Any(e => e.ID == id);
         }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
     }
 }

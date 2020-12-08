@@ -14,63 +14,69 @@
         <hr />
         @foreach (var item in Model)
         {
-            <dl class="row" id="formBackground">
+<dl class="row" id="formBackground">
 
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(item => item.FirstName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.LastName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.Email)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Email)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.Phone)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.Age)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Age)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.City)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.City)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.Department)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.Department)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.HiredDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.HiredDate)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => item.ModifiedDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(modelItem => item.ModifiedDate)
-                </dd>
-            </dl>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(item => item.FirstName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.LastName)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.LastName)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.Email)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.Email)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.Phone)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.Phone)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.Age)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.Age)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.City)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.City)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.Department)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.Department)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.HiredDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.HiredDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.FiredDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.FiredDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => item.ModifiedDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(modelItem => item.ModifiedDate)
+    </dd>
+</dl>
             <div class="form-row">
                 <div class="form-group col-md-2">
                     <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-block">Edit</a>

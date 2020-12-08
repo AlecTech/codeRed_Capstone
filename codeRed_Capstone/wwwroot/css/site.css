@@ -110,7 +110,7 @@ html {
   min-height: 100%;
 }
 
-/*======NavBar Identiry Hover start==========*/
+/*======NavBar Identity Hover start==========*/
 .navbar-primary .nav-item:after {
     content: "/";
     position: absolute;
@@ -132,7 +132,7 @@ html {
 .navbar-primary .nav-item:hover:before {
     width: 100%;
 }
-/*======NavBar Identiry Hover end==========*/
+/*======NavBar Identity Hover end==========*/
 /*======Add background image start========*/
 body {
     /* Margin bottom by footer height */
@@ -148,9 +148,6 @@ body {
 /*======Add background image end========*/
 /*=========Table Design and Media Query start======*/
 /*https://css-tricks.com/responsive-data-tables code borrowed and modified*/
-/*.mw-100 {
-    min-width: 100%;
-}*/
 
 #table-fit td,
 #table-fit th {
