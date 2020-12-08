@@ -33,8 +33,6 @@ namespace codeRed_Capstone
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-
             // cookie policy to deal with temporary browser incompatibilities
             //services.AddSameSiteCookiePolicy();
             //services.AddDefaultAllowAllCors();

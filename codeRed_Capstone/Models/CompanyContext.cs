@@ -26,7 +26,6 @@ namespace codeRed_Capstone.Models
                     "port=3306;" +
                     "user=root;" +
                     "database=codered_capstone;";
-                    //"Convert Zero Datetime = True;";
                 string version = "10.4.14-MariaDB";
                 optionsBuilder.UseMySql(connection, x => x.ServerVersion(version));
             }

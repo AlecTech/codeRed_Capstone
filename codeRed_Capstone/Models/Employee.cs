@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using codeRed_Capstone.Common;
-//using Microsoft.AspNetCore.Mvc;
 
 namespace codeRed_Capstone.Models
 {

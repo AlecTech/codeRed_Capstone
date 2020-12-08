@@ -9,8 +9,6 @@ using Microsoft.EntityFrameworkCore.Internal;
 using codeRed_Capstone.Models;
 using Microsoft.AspNetCore.Authorization;
 using codeRed_Capstone.Models.Exceptions;
-//Dec7 added for post protection
-//using System.Net;
 
 namespace codeRed_Capstone.Controllers
 {
@@ -32,8 +30,7 @@ namespace codeRed_Capstone.Controllers
             ViewData["DepSortParm"] = String.IsNullOrEmpty(sortOrder) ? "dep_desc" : "";
             ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date";
 
-            var emps = from s in _context.Employees
-                       select s;
+            var emps = from s in _context.Employees select s;
 
             if (filter)
             {
@@ -80,8 +77,8 @@ namespace codeRed_Capstone.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.ID == id);
+            var employee = await _context.Employees.FirstOrDefaultAsync(m => m.ID == id);
+
             if (employee == null)
             {
                 return NotFound();
@@ -91,10 +88,9 @@ namespace codeRed_Capstone.Controllers
         }
         // GET: Employee/DetailsBySurname/5
          public IActionResult DetailsBySurname(string lastName)
-        //public IActionResult DetailsBySurname(string lastName)
         {
             lastName = !string.IsNullOrWhiteSpace(lastName) ? lastName.Trim() : null;
-            //============= my validation ===================
+
             if (string.IsNullOrWhiteSpace(lastName))
             {
                 ModelState.AddModelError("LastName", "Last Name not Provided");               
@@ -114,12 +110,10 @@ namespace codeRed_Capstone.Controllers
             {
                 var employee = _context.Employees.Where(m => m.LastName == lastName);
                 return View(employee);
-            }
-   
+            }  
         }
         // GET: Employee/DetailsByEmail/5
         public async Task<IActionResult> DetailsByEmail(string email)
-        //public IActionResult DetailsByEmail(string email)
         {
             //Nov 25 Added validation logic to Search option
             email = !string.IsNullOrWhiteSpace(email) ? email.Trim() : null;
@@ -159,8 +153,7 @@ namespace codeRed_Capstone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("FirstName,LastName,Email,Phone,Age,City,Department,HiredDate")] Employee employee)
        {
-            //var model = new Employee();
-            //model.ValidationValidFrom = DateTime.Today;
+        
             employee.FirstName = !string.IsNullOrWhiteSpace(employee.FirstName) ? employee.FirstName.Trim() : null;
             if (string.IsNullOrWhiteSpace(employee.FirstName))
             {
@@ -310,49 +303,6 @@ namespace codeRed_Capstone.Controllers
         {
             return _context.Employees.Any(e => e.ID == id);
         }
-
-        //public void GetRecordByID(string email)
-        //public Employee GetRecordByID(string email)
-        //{
-        //    //Debug.WriteLine($"DATA - GetBookByID({id})");
-
-        //    ValidationException exception = new ValidationException();
-        //    using (var context = new CompanyContext())
-        //    {
-
-                
-        //        int parsedEmail = 0;
-        //        if (string.IsNullOrWhiteSpace(email))
-        //        {
-        //            exception.ValidationExceptions.Add(new Exception("Email Not Provided"));
-        //        }
-        //        else
-        //        {
-                    
-        //            // Common validation points (5) and (5a).
-        //            if (int.TryParse(email, out parsedEmail))
-        //            {
-        //                exception.ValidationExceptions.Add(new Exception("Email Not Valid, please enter string"));
-        //            }
-        //            else
-        //            {
-        //                // Category ID exists.
-        //                // Common validation point (7).
-        //                if (!context.Employees.Any(x => x.Email == email))
-        //                {
-        //                    exception.ValidationExceptions.Add(new Exception("Email Does Not Exist"));
-        //                }
-        //            }
-
-        //        }
-        //    }
-
-        //    if (exception.ValidationExceptions.Count > 0)
-        //    {
-        //        throw exception;
-        //    }
-        //    return _context.Employees.Where(x => x.Email == email).Single();
-        //}
 
     }
 }

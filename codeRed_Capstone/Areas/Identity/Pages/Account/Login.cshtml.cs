@@ -86,7 +86,7 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
+                // This does not keep track of login failed attempts for account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
@@ -110,7 +110,7 @@ namespace codeRed_Capstone.Areas.Identity.Pages.Account
                 }
             }
 
-            // If we got this far, something failed, redisplay form
+            // If you got this far, something failed, re-display form
             return Page();
         }
     }
